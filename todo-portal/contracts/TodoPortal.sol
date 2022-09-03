@@ -15,15 +15,15 @@ contract TodoPortal {
 
   function createTodo() public {
     totalTodo += 1;
-    console.log("%s has waved!", msg.sender);
+    console.log("%s has todo!", msg.sender);
   }
 
   function deleteTodo() public {
 
   }
 
-  function getTotalTodo() public view returns(uint256) {
-    console.log("We have %d total waves!", totalTodo);
+  function getTotalTodo() public view returns (uint256) {
+    console.log("We have %d total todo!", totalTodo);
     return totalTodo;
   }
 
