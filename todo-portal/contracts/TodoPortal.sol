@@ -15,11 +15,12 @@ contract TodoPortal {
 
   function createTodo() public {
     totalTodo += 1;
-    console.log("%s has todo!", msg.sender);
+    console.log("%s create todo!", msg.sender);
   }
 
   function deleteTodo() public {
-
+    totalTodo -= 1;
+    console.log("%s delete todo!", msg.sender);
   }
 
   function getTotalTodo() public view returns (uint256) {

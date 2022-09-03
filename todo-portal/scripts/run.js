@@ -14,6 +14,11 @@ const main = async () => {
   await todoTxn.wait();
 
   todoCount = await todoContract.getTotalTodo();
+
+  todoTxn = await todoContract.deleteTodo();
+  await todoTxn.wait();
+
+  todoCount = await todoContract.getTotalTodo();
 };
 
 const runMain = async () => {
