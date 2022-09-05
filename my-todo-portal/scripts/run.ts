@@ -1,6 +1,9 @@
+import { ethers } from "hardhat"
 const main = async () => {
-  const [owner, randomPerson] = await hre.ethers.getSigners();
-  const todoContractFactory = await hre.ethers.getContractFactory("TodoPortal");
+
+  const [owner, randomPerson] = await ethers.getSigners();
+  // console.log("Hello Typescript: ", owner.address);
+  const todoContractFactory = await ethers.getContractFactory("TodoPortal");
   const todoContract = await todoContractFactory.deploy();
   const todoPortal = await todoContract.deployed();
 
