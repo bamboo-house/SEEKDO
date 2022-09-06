@@ -1,27 +1,27 @@
 import { ethers } from "hardhat"
-const main = async () => {
+const main = async (): Promise<void> => {
 
   const [owner, randomPerson] = await ethers.getSigners();
   // console.log("Hello Typescript: ", owner.address);
-  const todoContractFactory = await ethers.getContractFactory("TodoPortal");
-  const todoContract = await todoContractFactory.deploy();
-  const todoPortal = await todoContract.deployed();
+  const myTodoContractFactory = await ethers.getContractFactory("MyTodoPortal");
+  const myTodoContract = await myTodoContractFactory.deploy();
+  const myTodoPortal = await myTodoContract.deployed();
 
-  console.log("Contract deployed to: ", todoPortal.address);
+  console.log("Contract deployed to: ", myTodoPortal.address);
   console.log("Contract deployed by:", owner.address);
 
   let todoCount;
-  todoCount = await todoContract.getTotalTodo();
+  todoCount = await myTodoContract.getTotalTodo();
 
-  let todoTxn = await todoContract.createTodo();
+  let todoTxn = await myTodoContract.createTodo();
   await todoTxn.wait();
 
-  todoCount = await todoContract.getTotalTodo();
+  todoCount = await myTodoContract.getTotalTodo();
 
-  todoTxn = await todoContract.deleteTodo();
+  todoTxn = await myTodoContract.deleteTodo();
   await todoTxn.wait();
 
-  todoCount = await todoContract.getTotalTodo();
+  todoCount = await myTodoContract.getTotalTodo();
 };
 
 const runMain = async () => {
