@@ -7,15 +7,26 @@ import "hardhat/console.sol";
 
 contract MyTodoPortal {
 
-  uint256 myTotalTodo;
+  uint256 totalTodo;
+
+  struct Todo {
+    address creator;
+    string message;
+    uint256 timestamp;
+    uint256 limit;
+  }
+
+  Todo[] todos;
 
   constructor() {
     console.log("Here is my fiirst smart contract!");
   }
 
-  function createTodo() public {
-    myTotalTodo += 1;
-    console.log("%s create todo!", msg.sender);
+  function createTodo(string memory _message, uint256 _limit) public {
+    totalTodo += 1;
+    console.log("%s waved w/ message %s", msg.sender, _message);
+
+    todos.push(Todo(msg.sender, _message, block.timestamp, _limit));
   }
 
   function deleteTodo() public {
