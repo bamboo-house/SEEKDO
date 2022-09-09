@@ -9,6 +9,8 @@ contract MyTodoPortal {
 
   uint256 totalTodo;
 
+  event  NewTodo(address indexed from, uint256 timestamp, string message, uint256 limit);
+
   struct Todo {
     address creator;
     string message;
@@ -27,6 +29,8 @@ contract MyTodoPortal {
     console.log("%s waved w/ message %s", msg.sender, _message);
 
     todos.push(Todo(msg.sender, _message, block.timestamp, _limit));
+
+    emit NewTodo(msg.sender, block.timestamp, _message, _limit);
   }
 
   function deleteTodo() public {
