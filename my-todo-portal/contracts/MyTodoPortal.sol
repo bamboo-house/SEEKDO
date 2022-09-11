@@ -26,7 +26,7 @@ contract MyTodoPortal {
 
   function createTodo(string memory _message, uint256 _limit) public {
     totalTodos += 1;
-    console.log("%s waved w/ message %s", msg.sender, _message);
+    console.log("%s create todo w/ with message %s", msg.sender, _message);
 
     todos.push(Todo(msg.sender, block.timestamp, _message, _limit));
 
@@ -36,6 +36,10 @@ contract MyTodoPortal {
   function deleteTodo() public {
     totalTodos -= 1;
     console.log("%s delete todo!", msg.sender);
+  }
+
+  function getTotalTodos() public view returns (uint256) {
+    return totalTodos;
   }
 
   function getAllTodos() public view returns (Todo[] memory) {

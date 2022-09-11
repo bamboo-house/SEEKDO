@@ -2,21 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const hardhat_1 = require("hardhat");
 const main = async () => {
-    const [owner, randomPerson] = await hardhat_1.ethers.getSigners();
-    // console.log("Hello Typescript: ", owner.address);
-    const myTodoContractFactory = await hardhat_1.ethers.getContractFactory("MyTodoPortal");
-    const myTodoContract = await myTodoContractFactory.deploy();
-    const myTodoPortal = await myTodoContract.deployed();
-    console.log("Contract deployed to: ", myTodoPortal.address);
-    console.log("Contract deployed by:", owner.address);
+    const todoContractFactory = await hardhat_1.ethers.getContractFactory("MyTodoPortal");
+    const todoContract = await todoContractFactory.deploy();
+    // const myTodoPortal = await mytodoContract.deployed();
+    console.log("Contract added to:", todoContract.address);
     let todoCount;
-    todoCount = await myTodoContract.getTotalTodo();
-    let todoTxn = await myTodoContract.createTodo();
+    todoCount = await todoContract.getTotalTodos();
+    console.log(todoCount.toNumber());
+    // todoを作る
+    let todoTxn = await todoContract.createTodo("テスト１", 20220914);
     await todoTxn.wait();
-    todoCount = await myTodoContract.getTotalTodo();
-    todoTxn = await myTodoContract.deleteTodo();
+    const [_, randomPerson] = await hardhat_1.ethers.getSigners();
+    todoTxn = await todoContract.connect(randomPerson).createTodo("テスト2", 20220916);
     await todoTxn.wait();
-    todoCount = await myTodoContract.getTotalTodo();
+    let allTodos = await todoContract.getAllTodos();
+    console.log(allTodos);
 };
 const runMain = async () => {
     try {

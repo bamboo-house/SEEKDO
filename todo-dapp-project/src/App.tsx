@@ -30,6 +30,7 @@ const App = () => {
 
     try {
       if (ethereum) {
+        // MetaMaskを介して、イーサリアムノードに接続する
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const todoPortalContract = new ethers.Contract(
