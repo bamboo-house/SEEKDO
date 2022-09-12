@@ -15,14 +15,15 @@ interface Todo {
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   console.log("currentAccount: ", currentAccount);
+  const [messageValue, setMessageValue] = useState("");
+  const [limitValue, setLimitValue] = useState(0);
+  const [allTodos, setAllTodos] = useState([]);
 
   // コントラクトのデプロイ先のアドレス
-  const contractAddress = "0x40D062FE3e3E439492AAf4d3c52C07B21aDb5FB1";
+  const contractAddress = "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB7A";
   // ABIの内容を参照する変数
   const contractABI = abi.abi;
 
-  // コントラクトとのデータ共有部分
-  const [allTodos, setAllTodos] = useState([]);
 
   const getAllTodos = async() => {
     // MetaMaskのライブラリ
@@ -56,29 +57,29 @@ const App = () => {
     }
   };
 
-  // const checkIFWalletIsConnected = async () => {
-  //   // window.ethereumにアクセスできることを確認する
-  //   try {
-  //     const { ethereum }: any = window;
-  //     if (!ethereum) {
-  //       console.log("Make sure you have MetaMask!");
-  //     } else {
-  //       console.log("We have the ethereum object", ethereum);
-  //     }
+  const checkIfWalletIsConnected = async () => {
+    // window.ethereumにアクセスできることを確認する
+    try {
+      const { ethereum }: any = window;
+      if (!ethereum) {
+        console.log("Make sure you have MetaMask!");
+      } else {
+        console.log("We have the ethereum object", ethereum);
+      }
   
-  //     // ユーザーのウォレットへのアクセスが許可されているかどうかを確認
-  //     const accounts = await ethereum.request({ method: "eth_accounts" });
-  //     if (accounts.length !== 0) {
-  //       const account = accounts[0];
-  //       console.log("Found an authorized account: ", account);
-  //       setCurrentAccount(account);
-  //     } else {
-  //       console.log("No authorized account found");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      // ユーザーのウォレットへのアクセスが許可されているかどうかを確認
+      const accounts = await ethereum.request({ method: "eth_accounts" });
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        console.log("Found an authorized account: ", account);
+        setCurrentAccount(account);
+      } else {
+        console.log("No authorized account found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const connectWallet = async () => {
     try {
@@ -136,6 +137,9 @@ const App = () => {
 
   }, []);
 
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
 
 
   return (
