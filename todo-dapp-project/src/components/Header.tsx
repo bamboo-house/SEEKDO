@@ -1,19 +1,12 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, makeStyles } from '@mui/material';
-
-const useStyles: any = makeStyles(() => ({
-  typographyStyles: {
-    flex: 1
-  }
-}));
+import { AppBar, Toolbar, Typography } from '@mui/material';
 
 export const Header = () => {
-  const classes = useStyles();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{mb: 3}}>
         <Toolbar>
-            <Typography className={classes.typographyStyles}>ヘッダー</Typography>
+            <Typography>ヘッダー</Typography>
         </Toolbar>
     </AppBar>
   );
