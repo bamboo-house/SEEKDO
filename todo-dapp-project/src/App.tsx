@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Button from '@mui/material/Button';
 import { StickyFooter } from './components/StickyFooter';
 import { TodoList } from './components/TodoList';
 import { Header } from './components/Header';
@@ -8,7 +7,8 @@ import { Header } from './components/Header';
 // ethers.jsのライブラリ
 import { ethers } from "ethers";
 import abi from "./utils/MyTodoPortal.json";
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
+import { url } from 'inspector';
 
 
 interface Todo {
@@ -148,23 +148,25 @@ const App = () => {
   }, []);
 
   return (
-    <Grid container direction="column">
-      <Grid item>
-        <Header/>
-        {/* ウォレットコネクトボタン */}
-        {/* {!currentAccount && (
-          <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
-        )}
-        {currentAccount && (
-          <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-        )} */}
-      </Grid>
+    <Box component="div" >
+      <Grid container direction="column">
+        <Grid item >
+          <Header/>
+          {/* ウォレットコネクトボタン */}
+          {/* {!currentAccount && (
+            <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
+          )}
+          {currentAccount && (
+            <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
+          )} */}
+        </Grid>
 
-      <Grid item>
-        <TodoList/>
+        <Grid item>
+          <TodoList/>
+        </Grid>
+        {/* <StickyFooter/> */}
       </Grid>
-      {/* <StickyFooter/> */}
-    </Grid>
+    </Box>
 
   );
 }
