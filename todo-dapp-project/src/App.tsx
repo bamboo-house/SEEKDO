@@ -148,6 +148,7 @@ const App = () => {
     checkIfWalletIsConnected();
   }, []);
 
+  // テーマカラーやフォント設定
   const apptheme = createTheme({
     palette: {
       mode: 'light',
@@ -177,10 +178,15 @@ const App = () => {
           )} */}
         </Grid>
 
-        <Grid item>
-          <TodoList/>
+        <Grid container spacing={3}>
+          <Grid item xs sx={{backgroundColor: "lightgreen"}}>
+          </Grid>
+          <Grid item xs={8}>
+            <TodoList/>
+          </Grid>
+          <Grid item xs sx={{backgroundColor: "lightgreen"}}>
+          </Grid>
         </Grid>
-        {/* <StickyFooter/> */}
       </Grid>
     </ThemeProvider>
   );
