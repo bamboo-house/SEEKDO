@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { StickyFooter } from './components/StickyFooter';
+
+import { Grid } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { TodoList } from './components/TodoList';
 import { Header } from './components/Header';
 
 // ethers.jsのライブラリ
 import { ethers } from "ethers";
 import abi from "./utils/MyTodoPortal.json";
-import { Box, Grid } from '@mui/material';
-import { url } from 'inspector';
 
 
 interface Todo {
@@ -147,9 +148,24 @@ const App = () => {
     checkIfWalletIsConnected();
   }, []);
 
+  const apptheme = createTheme({
+    palette: {
+      mode: 'light',
+        primary: {
+          main: '#3f51b5',
+          light: '#757de8',
+          dark: '#002984',
+        }
+    },
+    typography: {
+      fontFamily: 'Roboto'
+    }
+  })
+
   return (
-    <Box component="div" >
+    <ThemeProvider theme={apptheme}>
       <Grid container direction="column">
+        <CssBaseline/>
         <Grid item >
           <Header/>
           {/* ウォレットコネクトボタン */}
@@ -166,8 +182,7 @@ const App = () => {
         </Grid>
         {/* <StickyFooter/> */}
       </Grid>
-    </Box>
-
+    </ThemeProvider>
   );
 }
 
