@@ -165,27 +165,25 @@ const App = () => {
 
   return (
     <ThemeProvider theme={apptheme}>
-      <Grid container direction="column">
-        <CssBaseline/>
-        <Grid item >
-          <Header/>
-          {/* ウォレットコネクトボタン */}
-          {/* {!currentAccount && (
-            <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
-          )}
-          {currentAccount && (
-            <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-          )} */}
-        </Grid>
+      <CssBaseline/>
+      <Grid item xs={12} >
+        <Header/>
+        {/* ウォレットコネクトボタン */}
+        {/* {!currentAccount && (
+          <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
+        )}
+        {currentAccount && (
+          <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
+        )} */}
+      </Grid>
 
-        <Grid container spacing={3}>
-          <Grid item xs sx={{backgroundColor: "lightgreen"}}>
-          </Grid>
-          <Grid item xs={8}>
-            <TodoList/>
-          </Grid>
-          <Grid item xs sx={{backgroundColor: "lightgreen"}}>
-          </Grid>
+      <Grid container>
+        <Grid item xs={2} >
+        </Grid>
+        <Grid item xs={8}>
+          <TodoList/>
+        </Grid>
+        <Grid item xs={2} >
         </Grid>
       </Grid>
     </ThemeProvider>

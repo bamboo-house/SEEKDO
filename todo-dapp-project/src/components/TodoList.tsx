@@ -12,7 +12,10 @@ export const TodoList = () => {
   return (
     <div>
       {todoItems.map((item) => (
-        <div>{item.creator}</div>
+        <ul>
+          <li>{item.creator}</li>
+          <li>{item.message}</li>
+        </ul>
       ))}
     </div>
   );
