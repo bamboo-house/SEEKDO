@@ -14,7 +14,7 @@ export const TodoList = () => {
       {todoItems.map((item) => (
         <ul>
           <li>{item.creator}</li>
-          <li>{item.message}</li>
+          <li>{item.text}</li>
         </ul>
       ))}
     </div>

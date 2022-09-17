@@ -15,14 +15,14 @@ import abi from "./utils/MyTodoPortal.json";
 interface Todo {
   creator: any,
   timestamp: number,
-  message: string,
+  text: string,
   limit: number,
 }
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   console.log("currentAccount: ", currentAccount);
-  const [messageValue, setMessageValue] = useState("");
+  const [textValue, settextValue] = useState("");
   const [limitValue, setLimitValue] = useState(0);
   const [allTodos, setAllTodos] = useState([]);
 
@@ -51,7 +51,7 @@ const App = () => {
           return {
             address: todo.creator,
             timestamp: new Date(todo.timestamp * 1000),
-            message: todo.message,
+            text: todo.text,
             limit: todo.limit
           };
         });
@@ -110,14 +110,14 @@ const App = () => {
     const { ethereum }: any = window;
     // eimitされたイベントに反応する
     let todoPortalContract: ethers.Contract;
-    const onNewTodo = (from: any, timestamp: number, message: string, limit: number): void => {
-      console.log("NewTodo", from, timestamp, message, limit);
+    const onNewTodo = (from: any, timestamp: number, text: string, limit: number): void => {
+      console.log("NewTodo", from, timestamp, text, limit);
       setAllTodos((prevState): any => [
         ...prevState,
         {
           creator: from,
           timestamp: new Date(timestamp * 1000),
-          message: message,
+          text: text,
           limit: limit,
         },
       ]);
