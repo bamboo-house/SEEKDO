@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Button from '@mui/material/Button';
+
+import { Grid } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { TodoList } from './components/TodoList';
+import { AddTodoForm } from './components/AddTodoForm';
+import { Header } from './components/Header';
+
 // ethers.jsのライブラリ
 import { ethers } from "ethers";
 import abi from "./utils/MyTodoPortal.json";
 
+
 interface Todo {
   creator: any,
   timestamp: number,
-  message: string,
+  body: string,
   limit: number,
 }
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   console.log("currentAccount: ", currentAccount);
-  const [messageValue, setMessageValue] = useState("");
+  const [bodyValue, setbodyValue] = useState("");
   const [limitValue, setLimitValue] = useState(0);
   const [allTodos, setAllTodos] = useState([]);
 
@@ -44,7 +52,7 @@ const App = () => {
           return {
             address: todo.creator,
             timestamp: new Date(todo.timestamp * 1000),
-            message: todo.message,
+            body: todo.body,
             limit: todo.limit
           };
         });
@@ -103,14 +111,14 @@ const App = () => {
     const { ethereum }: any = window;
     // eimitされたイベントに反応する
     let todoPortalContract: ethers.Contract;
-    const onNewTodo = (from: any, timestamp: number, message: string, limit: number): void => {
-      console.log("NewTodo", from, timestamp, message, limit);
+    const onNewTodo = (from: any, timestamp: number, body: string, limit: number): void => {
+      console.log("NewTodo", from, timestamp, body, limit);
       setAllTodos((prevState): any => [
         ...prevState,
         {
           creator: from,
           timestamp: new Date(timestamp * 1000),
-          message: message,
+          body: body,
           limit: limit,
         },
       ]);
@@ -141,18 +149,46 @@ const App = () => {
     checkIfWalletIsConnected();
   }, []);
 
+  // テーマカラーやフォント設定
+  const apptheme = createTheme({
+    palette: {
+      mode: 'light',
+        primary: {
+          main: '#3f51b5',
+          light: '#757de8',
+          dark: '#002984',
+        }
+    },
+    typography: {
+      fontFamily: 'Roboto'
+    }
+  })
 
   return (
-    <div>
-      {/* ウォレットコネクトボタン */}
-      {!currentAccount && (
-        <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
-      )}
-      {currentAccount && (
-        <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-      )}
-    </div>
+    <ThemeProvider theme={apptheme}>
+      <CssBaseline/>
+      <Grid item xs={12} >
+        <Header/>
+        {/* ウォレットコネクトボタン */}
+        {/* {!currentAccount && (
+          <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
+        )}
+        {currentAccount && (
+          <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
+        )} */}
+      </Grid>
 
+      <Grid container>
+        <Grid item xs={2} >
+        </Grid>
+        <Grid item xs={8}>
+          <AddTodoForm/>
+          <TodoList/>
+        </Grid>
+        <Grid item xs={2} >
+        </Grid>
+      </Grid>
+    </ThemeProvider>
   );
 }
 
