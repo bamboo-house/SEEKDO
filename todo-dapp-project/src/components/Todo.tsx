@@ -15,7 +15,7 @@ type Props = {
 export const Todo = (props: Props) => {
   console.log(props);
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, mb: 3 }}>
       <CardContent>
         <Typography gutterBottom component="div">
           {props.items.creator}

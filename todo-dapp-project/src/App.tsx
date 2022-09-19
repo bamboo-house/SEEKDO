@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { TodoList } from './components/TodoList';
+import { AddTodoForm } from './components/AddTodoForm';
 import { Header } from './components/Header';
 
 // ethers.jsのライブラリ
@@ -181,6 +182,7 @@ const App = () => {
         <Grid item xs={2} >
         </Grid>
         <Grid item xs={8}>
+          <AddTodoForm/>
           <TodoList/>
         </Grid>
         <Grid item xs={2} >
