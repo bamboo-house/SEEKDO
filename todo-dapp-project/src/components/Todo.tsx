@@ -15,19 +15,19 @@ type Props = {
 export const Todo = (props: Props) => {
   console.log(props);
   return (
-    <Card sx={{ maxWidth: 345, mb: 3 }}>
+    <Card sx={{ mb: 3 }}>
       <CardContent>
         <Typography gutterBottom component="div">
           {props.items.creator}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary">
           {props.items.body}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {props.items.timestamp}
+          作成日：{props.items.timestamp}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {props.items.limit.toString()}
+          リミット：{props.items.limit.toString()}
         </Typography>
       </CardContent>
       <CardActions>
