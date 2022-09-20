@@ -31,8 +31,7 @@ export const Todo = (props: Props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="success">Share</Button>
-        <Button size="small" color="success">Learn More</Button>
+        <Button size="small" color="success" sx={{ ml: 'auto'}}>完了</Button>
       </CardActions>
     </Card>
   );
