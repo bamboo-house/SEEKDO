@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-
-import { Grid, Box, Container } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { Grid, Box, Container } from '@mui/material';
+
 import { TodoList } from './components/TodoList';
 import { AddTodoForm } from './components/AddTodoForm';
 import { Header } from './components/Header';
@@ -165,30 +165,32 @@ const App = () => {
   })
 
   return (
-    <ThemeProvider theme={apptheme}>
-      <CssBaseline/>
-      <Grid item xs={12} >
-        <Header/>
-        {/* ウォレットコネクトボタン */}
-        {/* {!currentAccount && (
-          <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
-        )}
-        {currentAccount && (
-          <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-        )} */}
-      </Grid>
+    <Box sx={{ bgcolor: '#F5F5F6'}}>
+      <ThemeProvider theme={apptheme} >
+        <CssBaseline/>
+        <Grid item xs={12} >
+          <Header/>
+          {/* ウォレットコネクトボタン */}
+          {/* {!currentAccount && (
+            <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
+          )}
+          {currentAccount && (
+            <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
+          )} */}
+        </Grid>
 
-      <Grid container>
-        <Grid item xs={2} >
+        <Grid container>
+          <Grid item xs={2} >
+          </Grid>
+          <Grid item xs={8}>
+            <AddTodoForm/>
+            <TodoList/>
+          </Grid>
+          <Grid item xs={2} >
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <AddTodoForm/>
-          <TodoList/>
-        </Grid>
-        <Grid item xs={2} >
-        </Grid>
-      </Grid>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Box>
   );
 }
 
