@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form'
 import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import { Typography } from '@mui/material';
@@ -38,9 +39,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const AddTodoForm = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
+  const { register, handleSubmit } = useForm();
 
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const onSubmit = (data: any) => console.log(data);
+
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
   
@@ -52,6 +55,17 @@ export const AddTodoForm = () => {
         <AccordionDetails>
           <Typography>
             ここはフォームです。ここはフォームです
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <label>Title</label>
+                <input id="title" {...register('title')}/>
+              </div>
+              <div>
+                <label>Body</label>
+                <input id="body" {...register('body')}/>
+              </div>
+              <button type="submit">保存</button>
+            </form>
           </Typography>
         </AccordionDetails>
       </Accordion>
