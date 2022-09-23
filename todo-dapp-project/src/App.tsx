@@ -154,9 +154,9 @@ const App = () => {
     palette: {
       mode: 'light',
         primary: {
-          main: '#3f51b5',
-          light: '#757de8',
-          dark: '#002984',
+          main: '#263238',
+          light: '#000a12',
+          dark: '#4f5b62',
         }
     },
     typography: {
