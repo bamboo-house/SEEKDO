@@ -60,7 +60,7 @@ export const AddTodoForm = () => {
               <TextField multiline rows={4} label="詳細" variant="outlined" size="small" margin="normal"/>
             </Box>
             {/* <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
+              <div
                 <label>Title</label>
                 <input id="title" {...register('title')}/>
               </div>
