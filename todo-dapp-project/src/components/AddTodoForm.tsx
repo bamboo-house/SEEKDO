@@ -54,7 +54,6 @@ export const AddTodoForm = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            ここはフォームです。ここはフォームです
             <form onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label>Title</label>
