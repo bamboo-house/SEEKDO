@@ -157,6 +157,11 @@ const App = () => {
           main: '#263238',
           light: '#000a12',
           dark: '#4f5b62',
+        },
+        secondary: {
+          main: '#dcedc8',
+          light: '#fffffb',
+          dark: '#aabb97'
         }
     },
     typography: {

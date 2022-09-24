@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
-import { Typography, Box, TextField } from '@mui/material';
+import { Typography, Box, TextField, Button } from '@mui/material';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
+type TodoFormType = {
+
+}
 
 const Accordion = styled((props: AccordionProps) => (<MuiAccordion disableGutters elevation={0} {...props} />))(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
@@ -38,9 +41,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const AddTodoForm = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<TodoFormType>();
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit: SubmitHandler<TodoFormType> = (data) => {
+    console.log(data);
+  }
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
@@ -58,6 +63,7 @@ export const AddTodoForm = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column'}}>
               <TextField required label="Todo名" variant="outlined" size="small" margin="normal"/>
               <TextField multiline rows={4} label="詳細" variant="outlined" size="small" margin="normal"/>
+              <Button color="secondary" variant="contained" size="small" sx={{ mb: 1, mt: 2 }} onClick={handleSubmit(onSubmit)}>作成</Button>
             </Box>
             {/* <form onSubmit={handleSubmit(onSubmit)}>
               <div>
