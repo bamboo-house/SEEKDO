@@ -6,6 +6,9 @@ import { Typography, Box, TextField, Button } from '@mui/material';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import ja from 'date-fns/locale/ja';
 
 type TodoFormType = {
 
@@ -60,22 +63,12 @@ export const AddTodoForm = () => {
         </Box>
         <AccordionDetails>
           <Typography>
+            {/* ract-hook-formとmuiを連携させるのに、TextFieldの場合はControllerはいらないが、TextField以外は必要 */}
             <Box sx={{ display: 'flex', flexDirection: 'column'}}>
               <TextField required label="Todo名" variant="outlined" size="small" margin="normal"/>
               <TextField multiline rows={4} label="詳細" variant="outlined" size="small" margin="normal"/>
               <Button color="secondary" variant="contained" size="small" sx={{ mb: 1, mt: 2 }} onClick={handleSubmit(onSubmit)}>作成</Button>
             </Box>
-            {/* <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label>Title</label>
-                <input id="title" {...register('title')}/>
-              </div>
-              <div>
-                <label>Body</label>
-                <input id="body" {...register('body')}/>
-              </div>
-              <button type="submit">保存</button>
-            </form> */}
           </Typography>
         </AccordionDetails>
       </Accordion>
