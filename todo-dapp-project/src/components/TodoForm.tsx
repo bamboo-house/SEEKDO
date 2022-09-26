@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Typography, Box, TextField, Button } from '@mui/material';
+import React from 'react';
+import { Box, TextField, Button } from '@mui/material';
 // フォーム部分
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 // DatePicker部分
@@ -7,7 +7,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ja from 'date-fns/locale/ja';
 
-type TodoFormType = {
+type TodoFormInputs = {
   title: string,
   body: string,
 }
@@ -15,18 +15,18 @@ type TodoFormType = {
 export const TodoForm = () => {
   // フォームの設定
   // muiと連携させるためにcontrolを使い、制御コンポーネントにする
-  const { control, handleSubmit } = useForm<TodoFormType>();
+  const { control, handleSubmit } = useForm<TodoFormInputs>();
 
   // フォームの送信時
-  const onSubmit: SubmitHandler<TodoFormType> = (data) => {
+  const onSubmit: SubmitHandler<TodoFormInputs> = (data) => {
     console.log(data);
   }
 
   return (
-    <Box component="form"  sx={{ display: 'flex', flexDirection: 'column'}}>
-      <TextField required label="Todo名" variant="outlined" size="small" margin="normal"/>
-      <TextField multiline rows={4} label="詳細" variant="outlined" size="small" margin="normal"/>
-      <Button color="secondary" variant="contained" size="small" sx={{ mb: 1, mt: 2 }}>作成</Button>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column'}}>
+      <TextField required label="Todo名" margin="normal" size="small" variant="outlined"/>
+      <TextField multiline label="詳細" margin="normal" rows={4} size="small" variant="outlined"/>
+      <Button color="secondary" size="small" sx={{ mb: 1, mt: 2 }} type="submit" variant="contained">作成</Button>
     </Box>
   );
 };

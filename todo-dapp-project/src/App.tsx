@@ -4,9 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Grid, Box } from '@mui/material';
 // 自作コンポーネント
-import { TodoList } from './components/TodoList';
-import { TodoFormAccordion } from './components/TodoFormAccordion';
 import { Header } from './components/Header';
+import { TodoFormAccordion } from './components/TodoFormAccordion';
+import { TodoList } from './components/TodoList';
 // ethers.jsのライブラリ
 import { ethers } from "ethers";
 import abi from "./utils/MyTodoPortal.json";
