@@ -24,7 +24,15 @@ export const TodoForm = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column'}}>
-      <TextField required label="Todo名" margin="normal" size="small" variant="outlined"/>
+      {/* ControllerTextFieldみたいなコンポーネントが必要かも、他にはControllerDatePickerなど */}
+      <Controller name="title" control={control} render={({ field, fieldState }) => (
+        <>
+          <TextField required {...field} error={fieldState.invalid} helperText={fieldState.error?.message} label="Todo名" margin="normal" size="small" variant="outlined"/>
+          {console.log({...field})}
+          {console.log(fieldState.invalid)}
+        </>
+        
+      )}/>
       <TextField multiline label="詳細" margin="normal" rows={4} size="small" variant="outlined"/>
       <Button color="secondary" size="small" sx={{ mb: 1, mt: 2 }} type="submit" variant="contained">作成</Button>
     </Box>
