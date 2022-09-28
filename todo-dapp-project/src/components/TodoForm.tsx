@@ -31,9 +31,14 @@ export const TodoForm = () => {
           {console.log({...field})}
           {console.log(fieldState.invalid)}
         </>
-        
       )}/>
-      <TextField multiline label="詳細" margin="normal" rows={4} size="small" variant="outlined"/>
+      <Controller name="body" control={control} render={({ field, fieldState }) => (
+        <>
+          <TextField multiline {...field} error={fieldState.invalid} helperText={fieldState.error?.message} label="詳細" margin="normal" rows={4} size="small" variant="outlined"/>
+          {console.log({...field})}
+          {console.log(fieldState.invalid)}
+        </>
+      )}/>
       <Button color="secondary" size="small" sx={{ mb: 1, mt: 2 }} type="submit" variant="contained">作成</Button>
     </Box>
   );
