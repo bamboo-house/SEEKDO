@@ -10,6 +10,7 @@ import ja from 'date-fns/locale/ja';
 type TodoFormInputs = {
   title: string,
   body: string,
+  amount: number,
 }
 
 export const TodoForm = () => {
@@ -28,15 +29,16 @@ export const TodoForm = () => {
       <Controller name="title" control={control} render={({ field, fieldState }) => (
         <>
           <TextField required {...field} error={fieldState.invalid} helperText={fieldState.error?.message} label="Todo名" margin="normal" size="small" variant="outlined"/>
-          {console.log({...field})}
-          {console.log(fieldState.invalid)}
         </>
       )}/>
       <Controller name="body" control={control} render={({ field, fieldState }) => (
         <>
           <TextField multiline {...field} error={fieldState.invalid} helperText={fieldState.error?.message} label="詳細" margin="normal" rows={4} size="small" variant="outlined"/>
-          {console.log({...field})}
-          {console.log(fieldState.invalid)}
+        </>
+      )}/>
+      <Controller name="amount" control={control} render={({ field, fieldState }) => (
+        <>
+          <TextField {...field} error={fieldState.invalid} helperText={fieldState.error?.message} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label="金額" margin="normal" size="small" variant="outlined"/>
         </>
       )}/>
       <Button color="secondary" size="small" sx={{ mb: 1, mt: 2 }} type="submit" variant="contained">作成</Button>
