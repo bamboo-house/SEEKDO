@@ -20,18 +20,18 @@ export const Todo = (props: Props) => {
         <Typography gutterBottom component="div">
           {props.items.creator}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography color="text.secondary" variant="body1">
           {props.items.body}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography color="text.secondary" variant="body2">
           作成日：{props.items.timestamp}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography color="text.secondary" variant="body2">
           リミット：{props.items.limit.toString()}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="success" sx={{ ml: 'auto'}}>完了</Button>
+        <Button color="success" size="small"sx={{ ml: 'auto'}}>完了</Button>
       </CardActions>
     </Card>
   );

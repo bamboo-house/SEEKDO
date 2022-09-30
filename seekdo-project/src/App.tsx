@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+// import './App.css';
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { Grid, Box, Container } from '@mui/material';
-
-import { TodoList } from './components/TodoList';
-import { AddTodoForm } from './components/AddTodoForm';
+import { Grid, Box } from '@mui/material';
+// 自作コンポーネント
 import { Header } from './components/Header';
-
+import { TodoFormAccordion } from './components/TodoFormAccordion';
+import { TodoList } from './components/TodoList';
 // ethers.jsのライブラリ
 import { ethers } from "ethers";
 import abi from "./utils/MyTodoPortal.json";
@@ -157,6 +156,11 @@ const App = () => {
           main: '#263238',
           light: '#000a12',
           dark: '#4f5b62',
+        },
+        secondary: {
+          main: '#dcedc8',
+          light: '#fffffb',
+          dark: '#aabb97'
         }
     },
     typography: {
@@ -183,7 +187,7 @@ const App = () => {
           <Grid item xs={2} >
           </Grid>
           <Grid item xs={8}>
-            <AddTodoForm/>
+            <TodoFormAccordion/>
             <TodoList/>
           </Grid>
           <Grid item xs={2} >
