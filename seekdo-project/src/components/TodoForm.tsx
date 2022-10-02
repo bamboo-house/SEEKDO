@@ -16,7 +16,14 @@ type TodoFormInputs = {
 export const TodoForm = () => {
   // フォームの設定
   // muiと連携させるためにcontrolを使い、制御コンポーネントにする
-  const { control, handleSubmit } = useForm<TodoFormInputs>();
+  const { control, handleSubmit } = useForm<TodoFormInputs>({
+    defaultValues: {
+        title: '',
+        body: '',
+        // 空の整数を設定しないと警告がでる
+        amount: 0,
+      }
+    });
 
   // フォームの送信時
   const onSubmit: SubmitHandler<TodoFormInputs> = (data) => {
