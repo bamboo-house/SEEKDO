@@ -28,8 +28,10 @@ contract MyTodoPortal {
     totalTodos += 1;
     console.log("%s create todo w/ with message %s", msg.sender, _message);
 
+    // 受け取ったデータをブロックチェーン上に保存する
     todos.push(Todo(msg.sender, block.timestamp, _message, _limit));
 
+    // 新しいTdodoを作ったことをフロントに伝える
     emit NewTodo(msg.sender, block.timestamp, _message, _limit);
   }
 

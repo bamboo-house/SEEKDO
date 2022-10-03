@@ -6,6 +6,8 @@ export const TodoList = () => {
   const [todoItems, setTodoItems] = useState<todoProps[]>(dummyData);
 
   useEffect(() => {
+    // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
+
     console.log(todoItems);
   }, []);
 

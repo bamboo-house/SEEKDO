@@ -27,6 +27,8 @@ export const TodoForm = () => {
 
   // フォームの送信時
   const onSubmit: SubmitHandler<TodoFormInputs> = (data) => {
+    // コントラクト呼び出し
+    // createTodo()
     console.log(data);
   }
 
