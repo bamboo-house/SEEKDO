@@ -6,6 +6,10 @@ import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ja from 'date-fns/locale/ja';
+// コントラクト関連のライブラリ
+import { ethers } from "ethers";
+import abi from "../utils/MyTodoPortal.json";
+
 
 type TodoFormInputs = {
   title: string,
@@ -14,6 +18,11 @@ type TodoFormInputs = {
 }
 
 export const TodoForm = () => {
+    // コントラクトのデプロイ先のアドレス
+    const contractAddress = "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB7A";
+    // ABIの内容を参照する変数
+    const contractABI = abi.abi;
+
   // フォームの設定
   // muiと連携させるためにcontrolを使い、制御コンポーネントにする
   const { control, handleSubmit } = useForm<TodoFormInputs>({
@@ -26,10 +35,32 @@ export const TodoForm = () => {
     });
 
   // フォームの送信時
-  const onSubmit: SubmitHandler<TodoFormInputs> = (data) => {
-    // コントラクト呼び出し
-    // createTodo()
-    console.log(data);
+  const onSubmit: SubmitHandler<TodoFormInputs> = async (formData) => {
+    try {
+      // コントラクト呼び出し
+      // createTodo()
+      const { ethereum }: any = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const todoPortalContract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer,
+        );
+    
+        // コントラクトにtodoを追加
+        const waveTxn = await todoPortalContract.createTodo({...formData}, {
+          gasLimit: 300000,
+        });
+        console.log("Mining...", waveTxn.hash);
+        await waveTxn.wait();
+        console.log("Mined -- ", waveTxn.hash);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (

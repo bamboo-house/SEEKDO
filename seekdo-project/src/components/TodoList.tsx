@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { dummyData } from "./DummyData";
 import { Todo, todoProps } from "./Todo";
+import { ethers } from "ethers";
+
 
 export const TodoList = () => {
   const [todoItems, setTodoItems] = useState<todoProps[]>(dummyData);

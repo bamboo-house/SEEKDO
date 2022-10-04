@@ -7,7 +7,7 @@ import { Grid, Box } from '@mui/material';
 import { Header } from './components/Header';
 import { TodoFormAccordion } from './components/TodoFormAccordion';
 import { TodoList } from './components/TodoList';
-// ethers.jsのライブラリ
+// コントラクト関連のライブラリ
 import { ethers } from "ethers";
 import abi from "./utils/MyTodoPortal.json";
 
