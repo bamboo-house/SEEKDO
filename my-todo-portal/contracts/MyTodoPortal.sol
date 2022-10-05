@@ -9,13 +9,14 @@ contract MyTodoPortal {
 
   uint256 totalTodos;
 
-  event  NewTodo(address indexed from, uint256 timestamp, string message, uint256 limit);
+  event  NewTodo(address indexed from, uint256 timestamp, string title, string body, uint256 amount);
 
   struct Todo {
     address creator;
     uint256 timestamp;
-    string message;
-    uint256 limit;
+    string title;
+    string body;
+    uint256 amount;
   }
 
   Todo[] todos;
@@ -24,15 +25,17 @@ contract MyTodoPortal {
     console.log("MyTodoPortal - Smart Contract!");
   }
 
-  function createTodo(string memory _message, uint256 _limit) public {
-    totalTodos += 1;
-    console.log("%s create todo w/ with message %s", msg.sender, _message);
+  function createTodo(string memory _title, string memory _body, uint256 _amount) public view {
+    // totalTodos += 1;
+    console.log("%s create todo w/ with \n title: %s", msg.sender, _title);
+    console.log("body: %s", _body);
+    console.log("amount: %s", _amount);
 
     // 受け取ったデータをブロックチェーン上に保存する
-    todos.push(Todo(msg.sender, block.timestamp, _message, _limit));
+    // todos.push(Todo(msg.sender, block.timestamp, _title, _body, _amount));
 
     // 新しいTdodoを作ったことをフロントに伝える
-    emit NewTodo(msg.sender, block.timestamp, _message, _limit);
+    // emit NewTodo(msg.sender, block.timestamp, _title, _body, _amount);
   }
 
   function deleteTodo() public {
