@@ -25,9 +25,10 @@ contract MyTodoPortal {
     console.log("MyTodoPortal - Smart Contract!");
   }
 
-  function createTodo(string memory _title, string memory _body, uint256 _amount) public view {
-    // totalTodos += 1;
-    console.log("%s create todo w/ with \n title: %s", msg.sender, _title);
+  // 10/5 viewをつけたときなぜか、run.tsでエラーが出る
+  function createTodo(string memory _title, string memory _body, uint256 _amount) public {
+    totalTodos += 1;
+    console.log("%s create todo w/ with \ntitle: %s", msg.sender, _title);
     console.log("body: %s", _body);
     console.log("amount: %s", _amount);
 
