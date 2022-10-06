@@ -2,20 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const hardhat_1 = require("hardhat");
 const main = async () => {
-    // const [owner, randomPerson] = await ethers.getSigners();
     const todoContractFactory = await hardhat_1.ethers.getContractFactory("MyTodoPortal");
     const todoContract = await todoContractFactory.deploy();
-    // const todoPortal = await todoContract.deployed();
-    // console.log("Contract deployed to:", todoPortal.address);
-    // console.log("Contract deployed by:", address);
     // todoを作る
     let todoTxn = await todoContract.createTodo("タイトル１", "ボディ1", 20220914); // コントラクトからの応答をフロントエンドが待機するよう設定
     await todoTxn.wait(); // コントラクトから承認されるのを待つ
     const [_, randomPerson] = await hardhat_1.ethers.getSigners();
     todoTxn = await todoContract.connect(randomPerson).createTodo("タイトル2", "ボディ2", 2022105);
     await todoTxn.wait();
-    // let totalTodos = await todoContract.getTotalTodos();
-    // console.log(totalTodos);
 };
 const runMain = async () => {
     try {

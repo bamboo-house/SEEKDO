@@ -9,7 +9,7 @@ import { TodoFormAccordion } from './components/TodoFormAccordion';
 import { TodoList } from './components/TodoList';
 // コントラクト関連のライブラリ
 import { ethers } from "ethers";
-import abi from "./utils/MyTodoPortal.json";
+import abi from "./utils/TodoFactory.json";
 
 
 interface Todo {

@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "MyTodoPortal",
-  "sourceName": "contracts/MyTodoPortal.sol",
+  "contractName": "TodoFactory",
+  "sourceName": "contracts/TodoFactory.sol",
   "abi": [
     {
       "inputs": [],
@@ -91,7 +91,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct MyTodoPortal.Todo[]",
+          "internalType": "struct TodoFactory.Todo[]",
           "name": "",
           "type": "tuple[]"
         }

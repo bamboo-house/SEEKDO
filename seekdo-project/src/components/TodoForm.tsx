@@ -8,7 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ja from 'date-fns/locale/ja';
 // コントラクト関連のライブラリ
 import { ethers } from "ethers";
-import abi from "../utils/MyTodoPortal.json";
+import abi from "../utils/TodoFactory.json";
 
 
 type TodoFormInputs = {

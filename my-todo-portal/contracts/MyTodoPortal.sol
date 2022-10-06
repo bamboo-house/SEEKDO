@@ -5,7 +5,7 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-contract MyTodoPortal {
+contract TodoFactory {
 
   uint256 totalTodos;
 
@@ -22,7 +22,7 @@ contract MyTodoPortal {
   Todo[] todos;
 
   constructor() {
-    console.log("MyTodoPortal - Smart Contract!");
+    console.log("TodoFactory - Smart Contract!");
   }
 
   // 10/5 viewをつけたときなぜか、run.tsでエラーが出る

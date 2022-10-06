@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 const main = async () => {
   const [deployer] = await ethers.getSigners();
   const accountBalance = await deployer.getBalance();
-  const waveContract = await ethers.getContractFactory("MyTodoPortal");
+  const waveContract = await ethers.getContractFactory("TodoFactory");
   const wavePortal = await waveContract.deploy();
 
   console.log("Deploying contracts with account: ", deployer.address);

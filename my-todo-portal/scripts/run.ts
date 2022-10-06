@@ -1,6 +1,6 @@
 import { ethers } from "hardhat"
 const main = async (): Promise<void> => {
-  const todoContractFactory = await ethers.getContractFactory("MyTodoPortal");
+  const todoContractFactory = await ethers.getContractFactory("TodoFactory");
   const todoContract = await todoContractFactory.deploy();
 
   // todoを作る
