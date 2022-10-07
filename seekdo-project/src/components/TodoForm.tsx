@@ -19,7 +19,7 @@ type TodoFormInputs = {
 
 export const TodoForm = () => {
     // コントラクトのデプロイ先のアドレス
-    const contractAddress = "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB7A";
+    const contractAddress = "0x2729499Fa35Df456367e28B40437346259B4867B";
     // ABIの内容を参照する変数
     const contractABI = abi.abi;
 
@@ -48,7 +48,7 @@ export const TodoForm = () => {
           contractABI,
           signer,
         );
-    
+
         // コントラクトにtodoを追加
         const waveTxn = await todoPortalContract.createTodo({...formData}, {
           gasLimit: 300000,
