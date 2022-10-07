@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import './App.css';
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Button } from '@mui/material';
 // 自作コンポーネント
 import { Header } from './components/Header';
 import { TodoFormAccordion } from './components/TodoFormAccordion';
@@ -64,46 +64,46 @@ const App = () => {
   //   }
   // };
 
-  // const checkIfWalletIsConnected = async () => {
-  //   // window.ethereumにアクセスできることを確認する
-  //   try {
-  //     const { ethereum }: any = window;
-  //     if (!ethereum) {
-  //       console.log("Make sure you have MetaMask!");
-  //     } else {
-  //       console.log("We have the ethereum object", ethereum);
-  //     }
+  const checkIfWalletIsConnected = async () => {
+    // window.ethereumにアクセスできることを確認する
+    try {
+      const { ethereum }: any = window;
+      if (!ethereum) {
+        console.log("Make sure you have MetaMask!");
+      } else {
+        console.log("We have the ethereum object", ethereum);
+      }
   
-  //     // ユーザーのウォレットへのアクセスが許可されているかどうかを確認
-  //     const accounts = await ethereum.request({ method: "eth_accounts" });
-  //     if (accounts.length !== 0) {
-  //       const account = accounts[0];
-  //       console.log("Found an authorized account: ", account);
-  //       setCurrentAccount(account);
-  //     } else {
-  //       console.log("No authorized account found");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      // ユーザーのウォレットへのアクセスが許可されているかどうかを確認
+      const accounts = await ethereum.request({ method: "eth_accounts" });
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        console.log("Found an authorized account: ", account);
+        setCurrentAccount(account);
+      } else {
+        console.log("No authorized account found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // const connectWallet = async () => {
-  //   try {
-  //     const { ethereum }: any = window;
-  //     if (!ethereum) {
-  //       alert("Get MetaMask!");
-  //       return;
-  //     }
-  //     const accounts = await ethereum.request({
-  //       method: "eth_requestAccounts",
-  //     });
-  //     console.log("Connected: ", accounts[0]);
-  //     setCurrentAccount(accounts[0]);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const connectWallet = async () => {
+    try {
+      const { ethereum }: any = window;
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log("Connected: ", accounts[0]);
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
   // useEffect(() => {
@@ -144,9 +144,9 @@ const App = () => {
 
   // }, []);
 
-  // useEffect(() => {
-  //   checkIfWalletIsConnected();
-  // }, []);
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
 
   // テーマカラーやフォント設定
   const apptheme = createTheme({
@@ -175,12 +175,12 @@ const App = () => {
         <Grid item xs={12} >
           <Header/>
           {/* ウォレットコネクトボタン */}
-          {/* {!currentAccount && (
+          {!currentAccount && (
             <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
           )}
           {currentAccount && (
             <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-          )} */}
+          )}
         </Grid>
 
         <Grid container>

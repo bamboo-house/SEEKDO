@@ -50,9 +50,12 @@ export const TodoForm = () => {
         );
 
         // コントラクトにtodoを追加
-        const waveTxn = await todoPortalContract.createTodo({...formData}, {
-          gasLimit: 300000,
-        });
+        const waveTxn = await todoPortalContract.createTodo(
+          formData.title,
+          formData.body,
+          formData.amount,
+          {gasLimit: 300000}
+          );
         console.log("Mining...", waveTxn.hash);
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
