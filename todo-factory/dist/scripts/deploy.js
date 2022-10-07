@@ -4,7 +4,7 @@ const hardhat_1 = require("hardhat");
 const main = async () => {
     const [deployer] = await hardhat_1.ethers.getSigners();
     const accountBalance = await deployer.getBalance();
-    const waveContract = await hardhat_1.ethers.getContractFactory("MyTodoPortal");
+    const waveContract = await hardhat_1.ethers.getContractFactory("TodoFactory");
     const wavePortal = await waveContract.deploy();
     console.log("Deploying contracts with account: ", deployer.address);
     console.log("Account balance: ", accountBalance.toString());

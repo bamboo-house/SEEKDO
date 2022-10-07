@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const hardhat_1 = require("hardhat");
 const main = async () => {
-    const todoContractFactory = await hardhat_1.ethers.getContractFactory("MyTodoPortal");
+    const todoContractFactory = await hardhat_1.ethers.getContractFactory("TodoFactory");
     const todoContract = await todoContractFactory.deploy();
     // todoを作る
     let todoTxn = await todoContract.createTodo("タイトル１", "ボディ1", 20220914); // コントラクトからの応答をフロントエンドが待機するよう設定
