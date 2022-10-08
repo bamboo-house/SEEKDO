@@ -33,7 +33,7 @@ contract TodoFactory {
     console.log("amount: %s", _amount);
 
     // 受け取ったデータをブロックチェーン上に保存する
-    // todos.push(Todo(msg.sender, block.timestamp, _title, _body, _amount));
+    todos.push(Todo(msg.sender, block.timestamp, _title, _body, _amount));
 
     // 新しいTdodoを作ったことをフロントに伝える
     // emit NewTodo(msg.sender, block.timestamp, _title, _body, _amount);

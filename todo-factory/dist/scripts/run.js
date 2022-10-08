@@ -10,6 +10,8 @@ const main = async () => {
     const [_, randomPerson] = await hardhat_1.ethers.getSigners();
     todoTxn = await todoContract.connect(randomPerson).createTodo("タイトル2", "ボディ2", 2022105);
     await todoTxn.wait();
+    let allTodos = await todoContract.getAllTodos();
+    console.log(allTodos);
 };
 const runMain = async () => {
     try {

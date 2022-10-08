@@ -19,7 +19,7 @@ type TodoFormInputs = {
 
 export const TodoForm = () => {
     // コントラクトのデプロイ先のアドレス
-    const contractAddress = "0x2729499Fa35Df456367e28B40437346259B4867B";
+    const contractAddress = "0x917d93eCc653F05C694B684A0331dc41958d7D73";
     // ABIの内容を参照する変数
     const contractABI = abi.abi;
 
