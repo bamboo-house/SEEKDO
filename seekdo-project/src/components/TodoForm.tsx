@@ -59,6 +59,8 @@ export const TodoForm = () => {
         console.log("Mining...", waveTxn.hash);
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
+        const todos = await todoPortalContract.getAllTodos();
+        console.log(todos);
       }
     } catch (error) {
       console.log(error);
