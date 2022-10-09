@@ -80,6 +80,8 @@ const App = () => {
         const account = accounts[0];
         console.log("Found an authorized account: ", account);
         setCurrentAccount(account);
+        // コントラクトからtodosを取得し、初期表示
+        // getAllTodos();
       } else {
         console.log("No authorized account found");
       }

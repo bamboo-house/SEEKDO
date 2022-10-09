@@ -1,4 +1,4 @@
-import { todoProps } from './Todo';
+import { todoProps } from './TodoList';
 
 // creator: any,
 // timestamp: number,
@@ -7,27 +7,23 @@ import { todoProps } from './Todo';
 
 export const dummyData: todoProps[] = [
   {
-    creator: "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB3A",
-    timestamp: 20220908,
-    body: "ダミー１",
-    limit: new Date("2022-09-18"),
+    title: "タイトル1タイトル1",
+    body: "ボディ1ボディ1",
+    amount: 11111111111,
   },
   {
-    creator: "0x6840AE6B4203a9f0f0628e5FBEFeff277248CB3A",
-    timestamp: 20220909,
-    body: "ダミー2",
-    limit: new Date("2022-09-20"),
+    title: "タイトル2タイトル2",
+    body: "ボディ2ボディ2",
+    amount: 2222222222,
   },
   {
-    creator: "0x5840AE6B4203a9f0f0628e5FBEFeff277248CB3A",
-    timestamp: 20220910,
-    body: "ダミー2",
-    limit: new Date("2022-09-22"),
+    title: "タイトル3タイトル3",
+    body: "ボディ3ボディ3",
+    amount: 333333333,
   },
   {
-    creator: "0x4330AE6B4203a9f0f0628e5FBEFeff277248CB3A",
-    timestamp: 20220912,
-    body: "ダミー2",
-    limit: new Date("2022-09-24"),
+    title: "タイトル4タ4イトル4",
+    body: "ボディ4ボディ4",
+    amount: 4444444,
   },
 ]
