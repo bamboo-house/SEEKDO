@@ -27,16 +27,18 @@ export const TodoList = () => {
     let todoFactoryContract: any;
 	
     const onNewTodo: onNewTodo = (title, body, amount) => {
-      console.log("NewTodo", title, body, amount);
-      setTodoItems((prevState) => [
-        ...prevState,
-        {
-          title: title,
-          body: body,
-          amount: amount,
-        },
-      ]);
+      console.log("NewTodo:", title, body, amount.toString());
+      // 10/9 下記エラーが出る
+      // setTodoItems((prevState) => [
+      //   ...prevState,
+      //   {
+      //     title: title,
+      //     body: body,
+      //     amount: amount,
+      //   },
+      // ]);
     };
+
     const { ethereum }: any = window;
     if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -50,7 +52,6 @@ export const TodoList = () => {
         // コントラクトのNewTodoイベントがemitされたときに、フロントのonNewTodo関数を呼び出す
         todoFactoryContract.on("NewTodo", onNewTodo);
       }
-    console.log(todoItems);
     // メモリリークを防ぐために、NewTodoのイベントを解除する
     return () => {
       if (todoFactoryContract) {
