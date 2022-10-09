@@ -19,7 +19,7 @@ type TodoFormInputs = {
 
 export const TodoForm = () => {
     // コントラクトのデプロイ先のアドレス
-    const contractAddress = "0x917d93eCc653F05C694B684A0331dc41958d7D73";
+    const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
     // ABIの内容を参照する変数
     const contractABI = abi.abi;
 
@@ -43,14 +43,14 @@ export const TodoForm = () => {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        const todoPortalContract = new ethers.Contract(
+        const todoFactoryContract = new ethers.Contract(
           contractAddress,
           contractABI,
           signer,
         );
 
         // コントラクトにtodoを追加
-        const waveTxn = await todoPortalContract.createTodo(
+        const waveTxn = await todoFactoryContract.createTodo(
           formData.title,
           formData.body,
           formData.amount,
@@ -59,7 +59,7 @@ export const TodoForm = () => {
         console.log("Mining...", waveTxn.hash);
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
-        const todos = await todoPortalContract.getAllTodos();
+        const todos = await todoFactoryContract.getAllTodos();
         console.log(todos);
       }
     } catch (error) {

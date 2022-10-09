@@ -9,7 +9,7 @@ contract TodoFactory {
 
   uint256 totalTodos;
 
-  event  NewTodo(address indexed from, uint256 timestamp, string title, string body, uint256 amount);
+  event  NewTodo(string title, string body, uint256 amount);
 
   struct Todo {
     address creator;
@@ -36,7 +36,7 @@ contract TodoFactory {
     todos.push(Todo(msg.sender, block.timestamp, _title, _body, _amount));
 
     // 新しいTdodoを作ったことをフロントに伝える
-    // emit NewTodo(msg.sender, block.timestamp, _title, _body, _amount);
+    emit NewTodo(_title, _body, _amount);
   }
 
   function deleteTodo() public {
