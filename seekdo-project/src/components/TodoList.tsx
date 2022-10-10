@@ -18,6 +18,7 @@ type onNewTodo = {
 
 export const TodoList = () => {
   const [todoItems, setTodoItems] = useState<todoProps[]>(dummyData);
+  const [sampleTodo, setSampleTodo] = useState([...todoItems]);
 
   const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
   const contractABI = abi.abi;
@@ -29,14 +30,14 @@ export const TodoList = () => {
     const onNewTodo: onNewTodo = (title, body, amount) => {
       console.log("NewTodo:", title, body, amount.toString());
       // 10/9 下記エラーが出る
-      // setTodoItems((prevState) => [
-      //   ...prevState,
-      //   {
-      //     title: title,
-      //     body: body,
-      //     amount: amount,
-      //   },
-      // ]);
+      setSampleTodo((prevState) => [
+        ...prevState,
+        {
+          title: title,
+          body: body,
+          amount: Number(amount),
+        },
+      ]);
     };
 
     const { ethereum }: any = window;
@@ -62,7 +63,7 @@ export const TodoList = () => {
 
   return (
     <div>
-      {todoItems.map((item: todoProps) => (
+      {sampleTodo.map((item: todoProps) => (
         <Todo items={item}/>
       ))}
     </div>
