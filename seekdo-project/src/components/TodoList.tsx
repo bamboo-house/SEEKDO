@@ -5,8 +5,7 @@ import { Todo } from "./Todo";
 import { ethers } from "ethers";
 import abi from "../utils/TodoFactory.json";
 
-
-export type todoProps = {
+export type TodoItemType = {
   title: string,
   body: string,
   amount: number,
@@ -17,7 +16,7 @@ type onNewTodo = {
 }
 
 export const TodoList = () => {
-  const [todoItems, setTodoItems] = useState<todoProps[]>(dummyData);
+  const [todoItems, setTodoItems] = useState<TodoItemType[]>(dummyData);
 
   const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
   const contractABI = abi.abi;
@@ -62,7 +61,7 @@ export const TodoList = () => {
 
   return (
     <div>
-      {todoItems.map((item: todoProps) => (
+      {todoItems.map((item: TodoItemType) => (
         <Todo items={item}/>
       ))}
     </div>
