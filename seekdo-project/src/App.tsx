@@ -22,9 +22,6 @@ interface Todo {
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
   console.log("currentAccount: ", currentAccount);
-  const [bodyValue, setbodyValue] = useState("");
-  const [limitValue, setLimitValue] = useState(0);
-  const [allTodos, setAllTodos] = useState([]);
 
   // コントラクトのデプロイ先のアドレス
   // const contractAddress = "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB7A";

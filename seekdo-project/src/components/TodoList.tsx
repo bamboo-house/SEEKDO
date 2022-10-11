@@ -18,7 +18,6 @@ type onNewTodo = {
 
 export const TodoList = () => {
   const [todoItems, setTodoItems] = useState<todoProps[]>(dummyData);
-  const [sampleTodo, setSampleTodo] = useState([...todoItems]);
 
   const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
   const contractABI = abi.abi;
@@ -30,7 +29,7 @@ export const TodoList = () => {
     const onNewTodo: onNewTodo = (title, body, amount) => {
       console.log("NewTodo:", title, body, amount.toString());
       // 10/9 下記エラーが出る
-      setSampleTodo((prevState) => [
+      setTodoItems((prevState) => [
         ...prevState,
         {
           title: title,
@@ -63,7 +62,7 @@ export const TodoList = () => {
 
   return (
     <div>
-      {sampleTodo.map((item: todoProps) => (
+      {todoItems.map((item: todoProps) => (
         <Todo items={item}/>
       ))}
     </div>
