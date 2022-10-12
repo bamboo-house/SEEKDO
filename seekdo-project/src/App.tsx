@@ -20,7 +20,7 @@ interface Todo {
 }
 
 const App = () => {
-  const [currentAccount, setCurrentAccount] = useState("");
+  const [currentAccount, setCurrentAccount] = useState<string>("");
   console.log("currentAccount: ", currentAccount);
 
   // コントラクトのデプロイ先のアドレス
@@ -172,7 +172,7 @@ const App = () => {
       <ThemeProvider theme={apptheme} >
         <CssBaseline/>
         <Grid item xs={12} >
-          <Header/>
+          <Header setCurrentAccount={setCurrentAccount}/>
           {/* ウォレットコネクトボタン */}
           {/* {!currentAccount && (
             <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>

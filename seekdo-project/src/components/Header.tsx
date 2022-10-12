@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Box, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import HdrStrongIcon from '@mui/icons-material/HdrStrong';
 
-export const Header = () => {
+type Props = {
+  setCurrentAccount: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const Header: React.FC<Props> = (props) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ mb: 3 }}>
