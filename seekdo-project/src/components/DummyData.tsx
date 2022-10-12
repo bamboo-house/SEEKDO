@@ -1,11 +1,11 @@
-import { todoProps } from './TodoList';
+import { TodoItemType } from './TodoList';
 
 // creator: any,
 // timestamp: number,
 // body: string,
 // limit: number,
 
-export const dummyData: todoProps[] = [
+export const dummyData: TodoItemType[] = [
   {
     title: "タイトル1タイトル1",
     body: "ボディ1ボディ1",

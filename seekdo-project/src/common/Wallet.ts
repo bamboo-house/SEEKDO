@@ -9,7 +9,7 @@ const connectWallet = async () => {
       method: "eth_requestAccounts",
     });
     console.log("Connected: ", accounts[0]);
-    // setCurrentAccount(accounts[0]);
+    // setCur rentAccount(accounts[0]);
   } catch (error) {
     console.log(error);
   }

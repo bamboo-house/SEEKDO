@@ -174,12 +174,12 @@ const App = () => {
         <Grid item xs={12} >
           <Header/>
           {/* ウォレットコネクトボタン */}
-          {!currentAccount && (
+          {/* {!currentAccount && (
             <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
           )}
           {currentAccount && (
             <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-          )}
+          )} */}
         </Grid>
 
         <Grid container>
