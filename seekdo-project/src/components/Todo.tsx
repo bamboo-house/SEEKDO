@@ -1,9 +1,11 @@
 import React from 'react';
-import { TodoItemType } from './TodoList';
+// 型
+import { TodoType } from "../common/Types"
+// mui
 import { Card, CardActions, CardContent, Button, Typography } from '@mui/material';
 
 type Props = {
-  items: TodoItemType
+  items: TodoType
 }
 
 export const Todo: React.FC<Props> = ({items}) => {

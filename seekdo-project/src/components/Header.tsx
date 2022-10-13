@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+// mui
 import { Box, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import HdrStrongIcon from '@mui/icons-material/HdrStrong';
 

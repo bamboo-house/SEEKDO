@@ -1,11 +1,7 @@
-import { TodoItemType } from './TodoList';
+// 型
+import { TodoType } from "../common/Types"
 
-// creator: any,
-// timestamp: number,
-// body: string,
-// limit: number,
-
-export const dummyData: TodoItemType[] = [
+export const dummyData: TodoType[] = [
   {
     title: "タイトル1タイトル1",
     body: "ボディ1ボディ1",

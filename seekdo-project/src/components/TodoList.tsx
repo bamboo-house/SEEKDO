@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { dummyData } from "./DummyData";
 import { Todo } from "./Todo";
+// 型
+import { TodoType } from "../common/Types"
 // コントラクト関連ライブラリ
 import { ethers } from "ethers";
 import abi from "../utils/TodoFactory.json";
-
-export type TodoItemType = {
-  title: string,
-  body: string,
-  amount: number,
-}
 
 type onNewTodo = {
   (title: string, body: string, amount: number): void
 }
 
 export const TodoList = () => {
-  const [todoItems, setTodoItems] = useState<TodoItemType[]>(dummyData);
+  const [todoItems, setTodoItems] = useState<TodoType[]>(dummyData);
 
   const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
   const contractABI = abi.abi;
@@ -61,7 +57,7 @@ export const TodoList = () => {
 
   return (
     <div>
-      {todoItems.map((item: TodoItemType) => (
+      {todoItems.map((item: TodoType) => (
         <Todo items={item}/>
       ))}
     </div>
