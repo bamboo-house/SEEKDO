@@ -164,14 +164,7 @@ const App = () => {
       <ThemeProvider theme={apptheme} >
         <CssBaseline/>
         <Grid item xs={12} >
-          <Header setCurrentAccount={setCurrentAccount}/>
-          {/* ウォレットコネクトボタン */}
-          {/* {!currentAccount && (
-            <Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>
-          )}
-          {currentAccount && (
-            <Button variant="contained" onClick={connectWallet}>Wallet Connected</Button>
-          )} */}
+          <Header connectWallet={connectWallet} currentAccount={currentAccount}/>
         </Grid>
 
         <Grid container>

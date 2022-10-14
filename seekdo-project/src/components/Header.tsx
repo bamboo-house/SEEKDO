@@ -4,7 +4,8 @@ import { Box, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/mater
 import HdrStrongIcon from '@mui/icons-material/HdrStrong';
 
 type Props = {
-  setCurrentAccount: React.Dispatch<React.SetStateAction<string>>;
+  connectWallet: () => Promise<void>;
+  currentAccount: string;
 }
 
 export const Header: React.FC<Props> = (props) => {
@@ -14,7 +15,12 @@ export const Header: React.FC<Props> = (props) => {
         <Toolbar>
           <IconButton color="inherit" edge="start" size="large" sx={{ mr: 2 }}><HdrStrongIcon/></IconButton>
           <Typography color="inherit" component="div" variant="h6" sx={{ flexGrow: 1 }}>SEEKDO</Typography>
-          <Button color="inherit" variant="text">ウォレット接続</Button>
+          {!props.currentAccount && (
+            <Button color="inherit" variant="text" onClick={props.connectWallet}>ウォレット接続</Button>
+          )}
+          {props.currentAccount && (
+            <Button color="inherit" variant="text" onClick={props.connectWallet}>ウォレット接続済み</Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
