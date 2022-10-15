@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { dummyData } from "./DummyData";
 import { Todo } from "./Todo";
 // 型
 import { TodoType } from "../common/Types"
@@ -7,21 +6,50 @@ import { TodoType } from "../common/Types"
 import { ethers } from "ethers";
 import abi from "../utils/TodoFactory.json";
 
-type onNewTodo = {
-  (title: string, body: string, amount: number): void
+type Props = {
+  currentAccount: string;
 }
 
-export const TodoList = () => {
-  const [todoItems, setTodoItems] = useState<TodoType[]>(dummyData);
+export const TodoList: React.FC<Props> = (props) => {
+  const [todoItems, setTodoItems] = useState<TodoType[]>([]);
 
   const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
   const contractABI = abi.abi;
 
+  const getAllTodos = async () => {
+    const { ethereum }: any = window;
+    
+    try {
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const todoFactoryContract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer,
+        );
+
+        const todos = await todoFactoryContract.getAllTodos();
+        const todosCleaned = todos.map((todo: TodoType) => {
+          return {
+            title: todo.title,
+            body: todo.body,
+            amount: Number(todo.amount),
+          };
+        });
+        setTodoItems(todosCleaned);
+      }
+    } catch {
+
+    }
+  };
+
   useEffect(() => {
+    console.log("TodoListのuseEffect")
     // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
-    let todoFactoryContract: any;
+    let todoFactoryContract: ethers.Contract;
 	
-    const onNewTodo: onNewTodo = (title, body, amount) => {
+    const onNewTodo = (title: string, body: string, amount: number): void => {
       console.log("NewTodo:", title, body, amount.toString());
       // 10/9 下記エラーが出る
       setTodoItems((prevState) => [
@@ -44,6 +72,7 @@ export const TodoList = () => {
           contractABI,
           signer
         );
+
         // コントラクトのNewTodoイベントがemitされたときに、フロントのonNewTodo関数を呼び出す
         todoFactoryContract.on("NewTodo", onNewTodo);
       }
@@ -54,6 +83,14 @@ export const TodoList = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (props.currentAccount) {
+      console.log("getAllTodosを呼び出す");
+      getAllTodos();
+    }
+  }, [props.currentAccount]);
+
 
   return (
     <div>

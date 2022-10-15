@@ -13,7 +13,7 @@ import { ethers } from "ethers";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState<string>("");
-  console.log("currentAccount: ", currentAccount);
+  console.log("現在のアカウント: ", currentAccount);
 
   // コントラクトのデプロイ先のアドレス
   // const contractAddress = "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB7A";
@@ -58,21 +58,19 @@ const App = () => {
     try {
       const { ethereum }: any = window;
       if (!ethereum) {
-        console.log("Make sure you have MetaMask!");
+        console.log("あなたのメタマスクを確認してください");
       } else {
-        console.log("We have the ethereum object", ethereum);
+        console.log("ブラウザからメタマスクにアクセス可能です", ethereum);
       }
   
       // ユーザーのウォレットへのアクセスが許可されているかどうかを確認
       const accounts = await ethereum.request({ method: "eth_accounts" });
       if (accounts.length !== 0) {
         const account = accounts[0];
-        console.log("Found an authorized account: ", account);
+        console.log("許可されたアカウント: ", account);
         setCurrentAccount(account);
-        // コントラクトからtodosを取得し、初期表示
-        // getAllTodos();
       } else {
-        console.log("No authorized account found");
+        console.log("許可されたアカウントが見つかりませんでした");
       }
     } catch (error) {
       console.log(error);
@@ -89,53 +87,15 @@ const App = () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      console.log("Connected: ", accounts[0]);
+      console.log("接続アカウント: ", accounts[0]);
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error);
     }
   };
 
-
-  // useEffect(() => {
-  //   const { ethereum }: any = window;
-  //   // eimitされたイベントに反応する
-  //   let todoPortalContract: ethers.Contract;
-  //   const onNewTodo = (from: any, timestamp: number, body: string, limit: number): void => {
-  //     console.log("NewTodo", from, timestamp, body, limit);
-  //     setAllTodos((prevState): any => [
-  //       ...prevState,
-  //       {
-  //         creator: from,
-  //         timestamp: new Date(timestamp * 1000),
-  //         body: body,
-  //         limit: limit,
-  //       },
-  //     ]);
-  //   };
-
-  //   /* NewTodoイベントがコントラクトから発信されたときに、情報を受け取る */
-  //   if (ethereum) {
-  //     const provider = new ethers.providers.Web3Provider(ethereum);
-  //     const signer = provider.getSigner();
-  
-  //     todoPortalContract = new ethers.Contract(
-  //       contractAddress,
-  //       contractABI,
-  //       signer
-  //     );
-  //     todoPortalContract.on("NewTodo", onNewTodo);
-  //   }
-  //   /*メモリリークを防ぐために、NewTodoのイベントを解除する*/
-  //   return () => {
-  //     if (todoPortalContract) {
-  //       todoPortalContract.off("NewTodo", onNewTodo);
-  //     }
-  //   };
-
-  // }, []);
-
   useEffect(() => {
+    console.log("checkIfWalletIsConnectedのuseEffect");
     checkIfWalletIsConnected();
   }, []);
 
@@ -172,7 +132,7 @@ const App = () => {
           </Grid>
           <Grid item xs={8}>
             <TodoFormAccordion/>
-            <TodoList/>
+            <TodoList currentAccount={currentAccount}/>
           </Grid>
           <Grid item xs={2} >
           </Grid>
