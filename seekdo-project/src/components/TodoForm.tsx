@@ -18,27 +18,23 @@ type TodoFormInputs = {
 }
 
 export const TodoForm = () => {
-    // コントラクトのデプロイ先のアドレス
-    const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
-    // ABIの内容を参照する変数
-    const contractABI = abi.abi;
+  const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
+  const contractABI = abi.abi;
 
   // フォームの設定
   // muiと連携させるためにcontrolを使い、制御コンポーネントにする
   const { control, handleSubmit } = useForm<TodoFormInputs>({
     defaultValues: {
-        title: '',
-        body: '',
-        // 空の整数を設定しないと警告がでる
-        amount: 0,
-      }
-    });
+      title: '',
+      body: '',
+      // 空の整数を設定しないと警告がでる
+      amount: 0,
+    }
+  });
 
   // フォームの送信時
   const onSubmit: SubmitHandler<TodoFormInputs> = async (formData) => {
     try {
-      // コントラクト呼び出し
-      // createTodo()
       const { ethereum }: any = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -65,8 +61,7 @@ export const TodoForm = () => {
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column'}}>

@@ -9,7 +9,6 @@ type Props = {
 }
 
 export const Todo: React.FC<Props> = ({items}) => {
-  console.log();
   return (
     <Card sx={{ mb: 3 }}>
       <CardContent>

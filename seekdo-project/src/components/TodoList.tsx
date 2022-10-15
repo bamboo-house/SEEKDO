@@ -12,7 +12,6 @@ type Props = {
 
 export const TodoList: React.FC<Props> = (props) => {
   const [todoItems, setTodoItems] = useState<TodoType[]>([]);
-
   const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
   const contractABI = abi.abi;
 
@@ -39,13 +38,12 @@ export const TodoList: React.FC<Props> = (props) => {
         });
         setTodoItems(todosCleaned);
       }
-    } catch {
-
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    console.log("TodoListのuseEffect")
     // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
     let todoFactoryContract: ethers.Contract;
 	
@@ -81,12 +79,11 @@ export const TodoList: React.FC<Props> = (props) => {
       if (todoFactoryContract) {
         todoFactoryContract.off("NewTodo", onNewTodo)
       }
-    }
+    };
   }, []);
 
   useEffect(() => {
     if (props.currentAccount) {
-      console.log("getAllTodosを呼び出す");
       getAllTodos();
     }
   }, [props.currentAccount]);

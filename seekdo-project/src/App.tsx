@@ -6,7 +6,7 @@ import { TodoList } from './components/TodoList';
 // mui
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { Grid, Box, Button } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 // コントラクト関連のライブラリ
 import { ethers } from "ethers";
 // import abi from "./utils/TodoFactory.json";
@@ -14,44 +14,6 @@ import { ethers } from "ethers";
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState<string>("");
   console.log("現在のアカウント: ", currentAccount);
-
-  // コントラクトのデプロイ先のアドレス
-  // const contractAddress = "0x4840AE6B4203a9f0f0628e5FBEFeff277248CB7A";
-  // ABIの内容を参照する変数
-  // const contractABI = abi.abi;
-
-
-  // const getAllTodos = async() => {
-  //   // MetaMaskのライブラリ
-  //   const { ethereum }: any = window;
-
-  //   try {
-  //     if (ethereum) {
-  //       // MetaMaskを介して、イーサリアムノードに接続する
-  //       const provider = new ethers.providers.Web3Provider(ethereum);
-  //       const signer = provider.getSigner();
-  //       const todoPortalContract = new ethers.Contract(
-  //         contractAddress,
-  //         contractABI,
-  //         signer
-  //       );
-  //       const todos = await todoPortalContract.getAllTodos();
-  //       const todosCleaned = todos.map((todo: Todo) => {
-  //         return {
-  //           address: todo.creator,
-  //           timestamp: new Date(todo.timestamp * 1000),
-  //           body: todo.body,
-  //           limit: todo.limit
-  //         };
-  //       });
-  //       setAllTodos(todosCleaned);
-  //     } else {
-  //       console.log("Ethereum object doesn't exist!");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const checkIfWalletIsConnected = async () => {
     // window.ethereumにアクセスできることを確認する
@@ -95,7 +57,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("checkIfWalletIsConnectedのuseEffect");
     checkIfWalletIsConnected();
   }, []);
 
