@@ -13,6 +13,4 @@ root.render(
   </React.StrictMode>
 );
 
-//　deletefileテスト
-
 reportWebVitals();
