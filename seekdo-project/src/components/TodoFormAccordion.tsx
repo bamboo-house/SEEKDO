@@ -55,9 +55,7 @@ export const TodoFormAccordion = () => {
           </AccordionSummary>
         </Box>
         <AccordionDetails>
-          <Typography>
-            <TodoForm/>
-          </Typography>
+          <TodoForm/>
         </AccordionDetails>
       </Accordion>
   );
