@@ -1,11 +1,15 @@
 import React from 'react';
-import { Box, TextField, Button } from '@mui/material';
 // フォーム部分
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-// DatePicker部分
+// mui
+import { Box, TextField, Button } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ja from 'date-fns/locale/ja';
+// コントラクト関連のライブラリ
+import { ethers } from "ethers";
+import abi from "../utils/TodoFactory.json";
+
 
 type TodoFormInputs = {
   title: string,
@@ -14,23 +18,50 @@ type TodoFormInputs = {
 }
 
 export const TodoForm = () => {
+  const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
+  const contractABI = abi.abi;
+
   // フォームの設定
   // muiと連携させるためにcontrolを使い、制御コンポーネントにする
   const { control, handleSubmit } = useForm<TodoFormInputs>({
     defaultValues: {
-        title: '',
-        body: '',
-        // 空の整数を設定しないと警告がでる
-        amount: 0,
-      }
-    });
+      title: '',
+      body: '',
+      // 空の整数を設定しないと警告がでる
+      amount: 0,
+    }
+  });
 
   // フォームの送信時
-  const onSubmit: SubmitHandler<TodoFormInputs> = (data) => {
-    // コントラクト呼び出し
-    // createTodo()
-    console.log(data);
-  }
+  const onSubmit: SubmitHandler<TodoFormInputs> = async (formData) => {
+    try {
+      const { ethereum }: any = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const todoFactoryContract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer,
+        );
+
+        // コントラクトにtodoを追加
+        const waveTxn = await todoFactoryContract.createTodo(
+          formData.title,
+          formData.body,
+          formData.amount,
+          {gasLimit: 300000}
+          );
+        console.log("Mining...", waveTxn.hash);
+        await waveTxn.wait();
+        console.log("Mined -- ", waveTxn.hash);
+        const todos = await todoFactoryContract.getAllTodos();
+        console.log("getAllTodos:", todos);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column'}}>

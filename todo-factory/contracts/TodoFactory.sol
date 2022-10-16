@@ -5,34 +5,38 @@ pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
 
-contract MyTodoPortal {
+contract TodoFactory {
 
   uint256 totalTodos;
 
-  event  NewTodo(address indexed from, uint256 timestamp, string message, uint256 limit);
+  event  NewTodo(string title, string body, uint256 amount);
 
   struct Todo {
     address creator;
     uint256 timestamp;
-    string message;
-    uint256 limit;
+    string title;
+    string body;
+    uint256 amount;
   }
 
   Todo[] todos;
 
   constructor() {
-    console.log("MyTodoPortal - Smart Contract!");
+    console.log("TodoFactory - Smart Contract!");
   }
 
-  function createTodo(string memory _message, uint256 _limit) public {
+  // 10/5 viewをつけたときなぜか、run.tsでエラーが出る
+  function createTodo(string memory _title, string memory _body, uint256 _amount) public {
     totalTodos += 1;
-    console.log("%s create todo w/ with message %s", msg.sender, _message);
+    console.log("%s create todo w/ with \ntitle: %s", msg.sender, _title);
+    console.log("body: %s", _body);
+    console.log("amount: %s", _amount);
 
     // 受け取ったデータをブロックチェーン上に保存する
-    todos.push(Todo(msg.sender, block.timestamp, _message, _limit));
+    todos.push(Todo(msg.sender, block.timestamp, _title, _body, _amount));
 
     // 新しいTdodoを作ったことをフロントに伝える
-    emit NewTodo(msg.sender, block.timestamp, _message, _limit);
+    emit NewTodo(_title, _body, _amount);
   }
 
   function deleteTodo() public {
