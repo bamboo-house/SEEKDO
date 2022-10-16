@@ -91,8 +91,8 @@ export const TodoList: React.FC<Props> = (props) => {
 
   return (
     <div>
-      {todoItems.map((item: TodoType) => (
-        <Todo items={item}/>
+      {todoItems.map((item: TodoType, index: number) => (
+        <Todo key={index} items={item}/>
       ))}
     </div>
   );
