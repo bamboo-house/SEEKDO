@@ -8,6 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ja from 'date-fns/locale/ja';
 // コントラクト関連のライブラリ
 import { ethers } from "ethers";
+import { LOCAL_CONSTANT  } from '../common/LocalConstant';
 import abi from "../utils/TodoFactory.json";
 
 
@@ -18,7 +19,7 @@ type TodoFormInputs = {
 }
 
 export const TodoForm = () => {
-  const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
+  const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
   // フォームの設定

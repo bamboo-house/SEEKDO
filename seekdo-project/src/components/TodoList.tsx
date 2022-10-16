@@ -4,6 +4,7 @@ import { Todo } from "./Todo";
 import { TodoType } from "../common/Types"
 // コントラクト関連ライブラリ
 import { ethers } from "ethers";
+import { LOCAL_CONSTANT } from "../common/LocalConstant";
 import abi from "../utils/TodoFactory.json";
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 
 export const TodoList: React.FC<Props> = (props) => {
   const [todoItems, setTodoItems] = useState<TodoType[]>([]);
-  const contractAddress = "0xf50B54Ce4BFebc336d0792e5D34697032EC60309";
+  const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
   const getAllTodos = async () => {
