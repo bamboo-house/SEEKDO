@@ -1,5 +1,8 @@
 export type TodoType = {
   title: string,
   body: string,
-  amount: number,
+  poolAmount: number,
+  // numberかどうかわからない
+  deadline: Date,
+  done: boolean,
 }

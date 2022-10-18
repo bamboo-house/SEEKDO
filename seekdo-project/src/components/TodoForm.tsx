@@ -1,4 +1,6 @@
 import React from 'react';
+// 型
+import { TodoType } from "../common/Types"
 // フォーム部分
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 // mui
@@ -11,30 +13,25 @@ import { ethers } from "ethers";
 import { LOCAL_CONSTANT  } from '../common/LocalConstant';
 import abi from "../utils/TodoFactory.json";
 
-
-type TodoFormInputs = {
-  title: string,
-  body: string,
-  amount: number,
-}
-
 export const TodoForm = () => {
   const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
   // フォームの設定
   // muiと連携させるためにcontrolを使い、制御コンポーネントにする
-  const { control, handleSubmit } = useForm<TodoFormInputs>({
+  const { control, handleSubmit } = useForm<TodoType>({
     defaultValues: {
       title: '',
       body: '',
       // 空の整数を設定しないと警告がでる
-      amount: 0,
+      poolAmount: 0,
+      deadline: new Date,
+      done: false,
     }
   });
 
   // フォームの送信時
-  const onSubmit: SubmitHandler<TodoFormInputs> = async (formData) => {
+  const onSubmit: SubmitHandler<TodoType> = async (formData) => {
     try {
       const { ethereum }: any = window;
       if (ethereum) {
@@ -50,7 +47,7 @@ export const TodoForm = () => {
         const waveTxn = await todoFactoryContract.createTodo(
           formData.title,
           formData.body,
-          formData.amount,
+          formData.poolAmount,
           {gasLimit: 300000}
           );
         console.log("Mining...", waveTxn.hash);
@@ -77,7 +74,7 @@ export const TodoForm = () => {
           <TextField multiline {...field} error={fieldState.invalid} helperText={fieldState.error?.message} label="詳細" margin="normal" rows={4} size="small" variant="outlined"/>
         </>
       )}/>
-      <Controller name="amount" control={control} render={({ field, fieldState }) => (
+      <Controller name="poolAmount" control={control} render={({ field, fieldState }) => (
         <>
           <TextField {...field} error={fieldState.invalid} helperText={fieldState.error?.message} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label="金額" margin="normal" size="small" variant="outlined"/>
         </>

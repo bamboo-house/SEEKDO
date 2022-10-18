@@ -34,7 +34,7 @@ export const TodoList: React.FC<Props> = (props) => {
           return {
             title: todo.title,
             body: todo.body,
-            amount: Number(todo.amount),
+            poolAmount: Number(todo.poolAmount),
           };
         });
         setTodoItems(todosCleaned);
@@ -48,15 +48,18 @@ export const TodoList: React.FC<Props> = (props) => {
     // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
     let todoFactoryContract: ethers.Contract;
 	
-    const onNewTodo = (title: string, body: string, amount: number): void => {
-      console.log("NewTodo:", title, body, amount.toString());
+    const onNewTodo = (title: string, body: string, poolAmount: number): void => {
+      console.log("NewTodo:", title, body, poolAmount.toString());
       // 10/9 下記エラーが出る
       setTodoItems((prevState) => [
         ...prevState,
         {
           title: title,
           body: body,
-          amount: Number(amount),
+          poolAmount: Number(poolAmount),
+          // 竹内
+          deadline: new Date,
+          done: false,
         },
       ]);
     };

@@ -27,7 +27,6 @@ contract TodoFactory {
 
   // 10/5 viewをつけたときなぜか、run.tsでエラーが出る
   function createTodo(string memory _title, string memory _body, uint256 _poolAmount, uint32 _deadline) public {
-    totalTodos += 1;
     console.log("%s create todo w/ with \ntitle: %s", msg.sender, _title);
     console.log("body: %s", _body);
     console.log("poolAmount: %s", _poolAmount);
@@ -45,7 +44,7 @@ contract TodoFactory {
   }
 
   // 竹内：完了ボタンを押したときに返金処理とdoneをtrueにする。
-  function doneTodo() public {
+  function doneTodo() public view {
     console.log("%s done todo!", msg.sender);
   }
 
