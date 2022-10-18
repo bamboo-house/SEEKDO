@@ -7,8 +7,6 @@ import "hardhat/console.sol";
 
 contract TodoFactory {
 
-  uint256 totalTodos;
-
   event  NewTodo(string title, string body, uint256 poolAmount, uint32 deadline);
 
   struct Todo {
@@ -37,6 +35,8 @@ contract TodoFactory {
 
     // 竹内: _deadlineを正しい形に変換？
 
+    // 竹内： 金額をプールする処理
+
     // 受け取ったデータをブロックチェーン上に保存する
     todos.push(Todo(msg.sender, _title, _body, _poolAmount, _deadline, false, uint32(block.timestamp)));
 
@@ -44,13 +44,9 @@ contract TodoFactory {
     emit NewTodo(_title, _body, _poolAmount, _deadline);
   }
 
-  function deleteTodo() public {
-    totalTodos -= 1;
-    console.log("%s delete todo!", msg.sender);
-  }
-
-  function getTotalTodos() public view returns (uint256) {
-    return totalTodos;
+  // 竹内：完了ボタンを押したときに返金処理とdoneをtrueにする。
+  function doneTodo() public {
+    console.log("%s done todo!", msg.sender);
   }
 
   function getAllTodos() public view returns (Todo[] memory) {
