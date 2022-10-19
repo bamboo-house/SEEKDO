@@ -50,7 +50,6 @@ export const TodoList: React.FC<Props> = (props) => {
 	
     const onNewTodo = (title: string, body: string, poolAmount: number): void => {
       console.log("NewTodo:", title, body, poolAmount.toString());
-      // 10/9 下記エラーが出る
       setTodoItems((prevState) => [
         ...prevState,
         {
