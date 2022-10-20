@@ -1,14 +1,14 @@
 import React from 'react';
 // 型
-import { TodoType } from "../common/Types"
+import { TodoType } from '../common/Types';
 // mui
 import { Card, CardActions, CardContent, Button, Typography } from '@mui/material';
 
-type Props = {
-  items: TodoType
+interface Props {
+  items: TodoType;
 }
 
-export const Todo: React.FC<Props> = ({items}) => {
+export const Todo: React.FC<Props> = ({ items }) => {
   return (
     <Card sx={{ mb: 3 }}>
       <CardContent>
@@ -23,7 +23,9 @@ export const Todo: React.FC<Props> = ({items}) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button color="success" size="small"sx={{ ml: 'auto'}}>完了</Button>
+        <Button color="success" size="small" sx={{ ml: 'auto' }}>
+          完了
+        </Button>
       </CardActions>
     </Card>
   );

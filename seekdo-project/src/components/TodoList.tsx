@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Todo } from "./Todo";
+import React, { useEffect, useState } from 'react';
+import { Todo } from './Todo';
 // 型
-import { TodoType } from "../common/Types"
+import { TodoType } from '../common/Types';
 // コントラクト関連ライブラリ
-import { ethers } from "ethers";
-import { LOCAL_CONSTANT } from "../common/LocalConstant";
-import abi from "../utils/TodoFactory.json";
+import { ethers } from 'ethers';
+import { LOCAL_CONSTANT } from '../common/LocalConstant';
+import abi from '../utils/TodoFactory.json';
 
-type Props = {
+interface Props {
   currentAccount: string;
 }
 
@@ -18,16 +18,12 @@ export const TodoList: React.FC<Props> = (props) => {
 
   const getAllTodos = async () => {
     const { ethereum }: any = window;
-    
+
     try {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        const todoFactoryContract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer,
-        );
+        const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         const todos = await todoFactoryContract.getAllTodos();
         const todosCleaned = todos.map((todo: TodoType) => {
@@ -47,17 +43,17 @@ export const TodoList: React.FC<Props> = (props) => {
   useEffect(() => {
     // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
     let todoFactoryContract: ethers.Contract;
-	
+
     const onNewTodo = (title: string, body: string, poolAmount: number): void => {
-      console.log("NewTodo:", title, body, poolAmount.toString());
+      console.log('NewTodo:', title, body, poolAmount.toString());
       setTodoItems((prevState) => [
         ...prevState,
         {
-          title: title,
-          body: body,
+          title,
+          body,
           poolAmount: Number(poolAmount),
           // 竹内
-          deadline: new Date,
+          deadline: new Date(),
           done: false,
         },
       ]);
@@ -65,22 +61,18 @@ export const TodoList: React.FC<Props> = (props) => {
 
     const { ethereum }: any = window;
     if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-    
-        todoFactoryContract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer
-        );
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
 
-        // コントラクトのNewTodoイベントがemitされたときに、フロントのonNewTodo関数を呼び出す
-        todoFactoryContract.on("NewTodo", onNewTodo);
-      }
+      todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+      // コントラクトのNewTodoイベントがemitされたときに、フロントのonNewTodo関数を呼び出す
+      todoFactoryContract.on('NewTodo', onNewTodo);
+    }
     // メモリリークを防ぐために、NewTodoのイベントを解除する
     return () => {
       if (todoFactoryContract) {
-        todoFactoryContract.off("NewTodo", onNewTodo)
+        todoFactoryContract.off('NewTodo', onNewTodo);
       }
     };
   }, []);
@@ -91,11 +83,10 @@ export const TodoList: React.FC<Props> = (props) => {
     }
   }, [props.currentAccount]);
 
-
   return (
     <div>
       {todoItems.map((item: TodoType, index: number) => (
-        <Todo key={index} items={item}/>
+        <Todo key={index} items={item} />
       ))}
     </div>
   );
