@@ -29,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "fix": "npm format && npm lint:fix",
+    "fix": "npm run format && npm run lint:fix",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'"
   },

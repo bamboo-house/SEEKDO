@@ -10,11 +10,11 @@ import { Grid, Box } from '@mui/material';
 // コントラクト関連のライブラリ
 // import abi from "./utils/TodoFactory.json";
 
-const App = () => {
+const App: React.FC = () => {
   const [currentAccount, setCurrentAccount] = useState<string>('');
   console.log('現在のアカウント: ', currentAccount);
 
-  const checkIfWalletIsConnected = async () => {
+  const checkIfWalletIsConnected = async (): Promise<void> => {
     // window.ethereumにアクセスできることを確認する
     try {
       const { ethereum }: any = window;
