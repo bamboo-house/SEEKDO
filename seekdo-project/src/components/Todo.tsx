@@ -19,7 +19,7 @@ export const Todo: React.FC<Props> = ({ items }) => {
           {items.body}
         </Typography>
         <Typography color="text.secondary" variant="body2">
-          金額：{items.amount}
+          金額：{items.poolAmount}
         </Typography>
       </CardContent>
       <CardActions>

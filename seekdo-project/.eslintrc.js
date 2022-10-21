@@ -4,11 +4,12 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'plugin:react/recommended',
-    'standard-with-typescript',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'prettier',
+    // 2022/10/21 言語理解が及ばないため無効
+    // 'plugin:react/recommended',
+    // 'standard-with-typescript',
+    // 'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    // 'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -29,32 +30,38 @@ module.exports = {
     'prettier', //追加 ESLintの情報に沿ってフォーマット
   ],
   rules: {
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ["error"], //typescript側のno-use-before-defineを使うようにする
-    '@typescript-eslint/no-unused-vars': 'off', //unused-importsを使うため削除
-    'unused-imports/no-unused-imports': 'error', //不要なimportの削除
-    'unused-imports/no-unused-vars': [ //unused-importsでno-unused-varsのルールを再定義
-      'warn',
-      { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
-    ],
-    'import/extensions': [
-      //importのときにファイルの拡張子を記述しなくてもエラーにしない
-      'error',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
-    'react/prop-types': 'off', //TypeScriptでチェックしているから不要。offにする
-    'react/react-in-jsx-scope': 'off', //import React from 'react'が無くてもエラーを無くす
-    'no-void': [ //void演算子の許可
-      'error',
-      {
-        allowAsStatement: true, 
-      },
-    ],
+    // 'no-use-before-define': 'off',
+    // '@typescript-eslint/no-use-before-define': ["error"], //typescript側のno-use-before-defineを使うようにする
+    // '@typescript-eslint/no-unused-vars': 'off', //unused-importsを使うため削除
+    // 'unused-imports/no-unused-imports': 'error', //不要なimportの削除
+    // 'unused-imports/no-unused-vars': [ //unused-importsでno-unused-varsのルールを再定義
+    //   'warn',
+    //   { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+    // ],
+    // 'import/extensions': [
+    //   //importのときにファイルの拡張子を記述しなくてもエラーにしない
+    //   'error',
+    //   {
+    //     js: 'never',
+    //     jsx: 'never',
+    //     ts: 'never',
+    //     tsx: 'never',
+    //   },
+    // ],
+    // 'react/prop-types': 'off', //TypeScriptでチェックしているから不要。offにする
+    // 'react/react-in-jsx-scope': 'off', //import React from 'react'が無くてもエラーを無くす
+    // 'no-void': [ //void演算子の許可
+    //   'error',
+    //   {
+    //     allowAsStatement: true, 
+    //   },
+    // ],
+    // "@typescript-eslint/no-misused-promises": [
+    //   "error",
+    //   {
+    //     "checksVoidReturn": false
+    //   },
+    // ],
   },
   settings: {
     'import/resolver': {
