@@ -6,3 +6,9 @@ export interface TodoType {
   deadline: Date;
   done: boolean;
 }
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}

@@ -17,7 +17,7 @@ const App: React.FC = () => {
   const checkIfWalletIsConnected = async (): Promise<void> => {
     // window.ethereumにアクセスできることを確認する
     try {
-      const { ethereum }: any = window;
+      const { ethereum } = window;
       if (!ethereum) {
         console.log('あなたのメタマスクを確認してください');
       } else {
@@ -25,7 +25,7 @@ const App: React.FC = () => {
       }
 
       // ユーザーのウォレットへのアクセスが許可されているかどうかを確認
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      const accounts: any[] = await ethereum.request({ method: 'eth_accounts' });
       if (accounts.length !== 0) {
         const account = accounts[0];
         console.log('許可されたアカウント: ', account);
