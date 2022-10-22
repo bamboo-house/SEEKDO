@@ -35,7 +35,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({}));
 
-export const TodoFormAccordion = () => {
+export const TodoFormAccordion: React.FC = () => {
   // アコーディオンの開閉を記憶する
   const [expanded, setExpanded] = useState<string | false>(false);
 

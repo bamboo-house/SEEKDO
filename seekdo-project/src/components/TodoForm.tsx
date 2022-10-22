@@ -10,12 +10,12 @@ import { ethers } from 'ethers';
 import { LOCAL_CONSTANT } from '../common/LocalConstant';
 import abi from '../utils/TodoFactory.json';
 
-export const TodoForm = () => {
+export const TodoForm: React.FC = () => {
   const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
   // フォームの設定
-  // muiと連携させるためにcontrolを使い、制御コンポーネントにする
+  // react-hooksとmuiを連携させるためにcontrolを使い、制御コンポーネントにする
   const { control, handleSubmit } = useForm<TodoType>({
     defaultValues: {
       title: '',
