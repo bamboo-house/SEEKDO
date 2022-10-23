@@ -4,7 +4,12 @@ import { TodoType } from '../common/Types';
 // フォーム部分
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 // mui
+// import dayjs, { Dayjs } from 'dayjs';
 import { Box, TextField, Button } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+
 // コントラクト関連のライブラリ
 import { ethers } from 'ethers';
 import { LOCAL_CONSTANT } from '../common/LocalConstant';
@@ -106,6 +111,31 @@ export const TodoForm: React.FC = () => {
               size="small"
               variant="outlined"
             />
+          </>
+        )}
+      />
+      <Controller
+        name="deadline"
+        control={control}
+        render={({ field, fieldState }) => (
+          <>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                {...field}
+                label="期限"
+                inputFormat="yyyy年MM月dd日hh時mm分"
+                mask="____年__月__日__時"
+                // value={"i"}
+                // onChange={()=>{}}
+                renderInput={(params) => (
+                  <TextField 
+                    {...params} 
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
+              />
+            </LocalizationProvider>
           </>
         )}
       />
