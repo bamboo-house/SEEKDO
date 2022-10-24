@@ -21,6 +21,12 @@ export const Todo: React.FC<Props> = ({ items }) => {
         <Typography color="text.secondary" variant="body2">
           金額：{items.poolAmount}
         </Typography>
+        <Typography color="text.secondary" variant="body2">
+          {/* 期限：{items.poolAmount} */}
+        </Typography>
+        <Typography color="text.secondary" variant="body2">
+          {/* 完了済み：{items.done} */}
+        </Typography>
       </CardContent>
       <CardActions>
         <Button color="success" size="small" sx={{ ml: 'auto' }}>
