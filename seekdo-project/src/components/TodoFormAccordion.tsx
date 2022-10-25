@@ -9,6 +9,10 @@ import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
+interface Props {
+  currentAccount: string;
+}
+
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} {...props} />)(
   ({ theme }) => ({
     border: `1px solid ${theme.palette.divider}`,
@@ -35,7 +39,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({}));
 
-export const TodoFormAccordion: React.FC = () => {
+export const TodoFormAccordion: React.FC<Props> = (props) => {
   // アコーディオンの開閉を記憶する
   const [expanded, setExpanded] = useState<string | false>(false);
 
@@ -52,7 +56,7 @@ export const TodoFormAccordion: React.FC = () => {
         </AccordionSummary>
       </Box>
       <AccordionDetails>
-        <TodoForm />
+        <TodoForm currentAccount={props.currentAccount}/>
       </AccordionDetails>
     </Accordion>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // 型
 import { TodoType } from '../common/Types';
 // フォーム部分
@@ -13,7 +13,11 @@ import { ethers } from 'ethers';
 import { LOCAL_CONSTANT } from '../common/LocalConstant';
 import abi from '../utils/TodoFactory.json';
 
-export const TodoForm: React.FC = () => {
+interface Props{
+  currentAccount: string;
+}
+
+export const TodoForm: React.FC<Props> = (props) => {
   const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
@@ -32,6 +36,7 @@ export const TodoForm: React.FC = () => {
 
   // フォームの送信時
   const onSubmit: SubmitHandler<TodoType> = async (formData) => {
+    // console.log(formData.deadline.getTime());
     try {
       const { ethereum }: any = window;
       if (ethereum) {
@@ -53,6 +58,37 @@ export const TodoForm: React.FC = () => {
       console.log(error);
     }
   };
+
+  const sample = async () => {
+    console.log("カレントアカウント", props.currentAccount);
+    try {
+      const { ethereum }: any = window;
+      if (ethereum) {
+        const recipient = "0x611E72c39419168FfF07F068E76a077588225798"
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const tx = {
+          from: props.currentAccount,
+          to: recipient,
+          value: ethers.utils.parseEther("0.001"),
+          nonce: await provider.getTransactionCount(props.currentAccount, "latest"),
+          gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
+          gasLimit: ethers.utils.hexlify(100000), // 100 gwei
+        };
+        
+        signer.sendTransaction(tx).then((transaction) => {
+            console.log("transaction", transaction);
+            alert("Send finished!");
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // sample();
+  }, []);
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column' }}>

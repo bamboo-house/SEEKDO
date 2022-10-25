@@ -92,7 +92,7 @@ const App: React.FC = () => {
         <Grid container>
           <Grid item xs={2}></Grid>
           <Grid item xs={8}>
-            <TodoFormAccordion />
+            <TodoFormAccordion currentAccount={currentAccount} />
             <TodoList currentAccount={currentAccount} />
           </Grid>
           <Grid item xs={2}></Grid>
