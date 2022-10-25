@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { AccountContainer } from '../common/containers/AccountContainer';
 import { Todo } from './Todo';
 // 型
 import { TodoType } from '../common/Types';
@@ -7,11 +8,8 @@ import { ethers } from 'ethers';
 import { LOCAL_CONSTANT } from '../common/LocalConstant';
 import abi from '../utils/TodoFactory.json';
 
-interface Props {
-  currentAccount: string;
-}
-
-export const TodoList: React.FC<Props> = (props) => {
+export const TodoList: React.FC = () => {
+  const { currentAccount } = AccountContainer.useContainer();
   const [todoItems, setTodoItems] = useState<TodoType[]>([]);
   const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
@@ -78,10 +76,10 @@ export const TodoList: React.FC<Props> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.currentAccount) {
+    if (currentAccount) {
       getAllTodos();
     }
-  }, [props.currentAccount]);
+  }, [currentAccount]);
 
   return (
     <div>

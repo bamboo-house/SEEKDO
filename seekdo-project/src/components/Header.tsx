@@ -1,14 +1,12 @@
 import React from 'react';
+import { AccountContainer } from "../common/containers/AccountContainer";
 // mui
 import { Box, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import HdrStrongIcon from '@mui/icons-material/HdrStrong';
 
-interface Props {
-  connectWallet: () => Promise<void>;
-  currentAccount: string;
-}
+export const Header: React.FC = (props) => {
+  const { currentAccount, connectWallet } = AccountContainer.useContainer();
 
-export const Header: React.FC<Props> = (props) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ mb: 3 }}>
@@ -19,13 +17,13 @@ export const Header: React.FC<Props> = (props) => {
           <Typography color="inherit" component="div" variant="h6" sx={{ flexGrow: 1 }}>
             SEEKDO
           </Typography>
-          {!props.currentAccount && (
-            <Button color="inherit" variant="text" onClick={props.connectWallet}>
+          {!currentAccount && (
+            <Button color="inherit" variant="text" onClick={connectWallet}>
               ウォレット接続
             </Button>
           )}
-          {props.currentAccount && (
-            <Button color="inherit" variant="text" onClick={props.connectWallet}>
+          {currentAccount && (
+            <Button color="inherit" variant="text" onClick={connectWallet}>
               ウォレット接続済み
             </Button>
           )}
