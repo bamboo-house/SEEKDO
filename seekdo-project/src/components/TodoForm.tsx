@@ -43,9 +43,12 @@ export const TodoForm: React.FC = () => {
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         // コントラクトにtodoを追加
-        const waveTxn = await todoFactoryContract.createTodo(formData.title, formData.body, formData.poolAmount, {
-          gasLimit: 300000,
-        });
+        const waveTxn = await todoFactoryContract.createTodo(
+          formData.title,
+          formData.body,
+          formData.poolAmount,
+          { gasLimit: 300000, }
+        );
         console.log('Mining...', waveTxn.hash);
         await waveTxn.wait();
         console.log('Mined -- ', waveTxn.hash);

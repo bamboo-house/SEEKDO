@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-// 自作コンポーネント
 import { AccountContainer } from "./common/containers/AccountContainer";
+// 自作コンポーネント
 import { Header } from './components/Header';
 import { TodoFormAccordion } from './components/TodoFormAccordion';
 import { TodoList } from './components/TodoList';
