@@ -1,4 +1,5 @@
-import { ethers } from "hardhat"
+import { ethers } from "hardhat";
+
 const main = async (): Promise<void> => {
   const todoContractFactory = await ethers.getContractFactory("TodoFactory");
   /*

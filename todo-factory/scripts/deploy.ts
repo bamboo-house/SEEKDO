@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
 
-const main = async () => {
+const main = async (): Promise<void> => {
   const [deployer] = await ethers.getSigners();
   const accountBalance = await deployer.getBalance();
   console.log("Deploying contracts with account: ", deployer.address);
