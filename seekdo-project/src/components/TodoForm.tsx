@@ -49,6 +49,20 @@ export const TodoForm: React.FC = () => {
           formData.poolAmount,
           { gasLimit: 300000, }
         );
+
+        const tx = {
+          from: currentAccount,
+          to: contractAddress,
+          value: ethers.utils.parseEther("0.001"),
+          nonce: await provider.getTransactionCount(currentAccount, "latest"),
+          gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
+          gasLimit: ethers.utils.hexlify(100000), // 100 gwei
+        };
+        
+        signer.sendTransaction(tx).then((transaction) => {
+            console.log("transaction", transaction);
+            alert("Send finished!");
+        });
         console.log('Mining...', waveTxn.hash);
         await waveTxn.wait();
         console.log('Mined -- ', waveTxn.hash);

@@ -21,7 +21,7 @@ contract TodoFactory {
 
   Todo[] todos;
 
-  constructor() {
+  constructor() payable {
     console.log("TodoFactory - Smart Contract!");
   }
 

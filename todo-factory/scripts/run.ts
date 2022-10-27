@@ -1,18 +1,26 @@
 import { ethers } from "hardhat"
 const main = async (): Promise<void> => {
   const todoContractFactory = await ethers.getContractFactory("TodoFactory");
-  const todoContract = await todoContractFactory.deploy();
+  /*
+   * デプロイする際0.1ETHをコントラクトに提供する
+   */
+  const todoContract = await todoContractFactory.deploy({
+    value: ethers.utils.parseEther("0.1"),
+  });
+  await todoContract.deployed();
+  console.log("Contract deployed to: ", todoContract.address);
 
-  // todoを作る
-  let todoTxn = await todoContract.createTodo("タイトル１", "ボディ1", 20220914); // コントラクトからの応答をフロントエンドが待機するよう設定
-  await todoTxn.wait(); // コントラクトから承認されるのを待つ
+  /*
+   * コントラクトの残高を取得（0.1ETH）であることを確認
+   */
+  let contractBalance = await ethers.provider.getBalance(
+    todoContract.address
+  );
+  console.log(
+    "Contract balance:",
+    ethers.utils.formatEther(contractBalance)
+  );
 
-  const [_, randomPerson] = await ethers.getSigners();
-  todoTxn = await todoContract.connect(randomPerson).createTodo("タイトル2", "ボディ2", 2022105);
-  await todoTxn.wait();
-
-  let allTodos = await todoContract.getAllTodos();
-  console.log(allTodos);
 };
 
 const runMain = async () => {

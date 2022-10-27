@@ -4,12 +4,14 @@ const hardhat_1 = require("hardhat");
 const main = async () => {
     const [deployer] = await hardhat_1.ethers.getSigners();
     const accountBalance = await deployer.getBalance();
-    const waveContract = await hardhat_1.ethers.getContractFactory("TodoFactory");
-    const wavePortal = await waveContract.deploy();
     console.log("Deploying contracts with account: ", deployer.address);
     console.log("Account balance: ", accountBalance.toString());
-    console.log("Contract deployed to: ", wavePortal.address);
-    console.log("Contract deployed by:", deployer.address);
+    const todoFactoryContract = await hardhat_1.ethers.getContractFactory("TodoFactory");
+    const todoContract = await todoFactoryContract.deploy({
+        value: hardhat_1.ethers.utils.parseEther("0.001"),
+    });
+    await todoContract.deployed();
+    console.log("TodoFactory address: ", todoContract.address);
 };
 const runMain = async () => {
     try {

@@ -3,15 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const hardhat_1 = require("hardhat");
 const main = async () => {
     const todoContractFactory = await hardhat_1.ethers.getContractFactory("TodoFactory");
-    const todoContract = await todoContractFactory.deploy();
-    // todoを作る
-    let todoTxn = await todoContract.createTodo("タイトル１", "ボディ1", 20220914); // コントラクトからの応答をフロントエンドが待機するよう設定
-    await todoTxn.wait(); // コントラクトから承認されるのを待つ
-    const [_, randomPerson] = await hardhat_1.ethers.getSigners();
-    todoTxn = await todoContract.connect(randomPerson).createTodo("タイトル2", "ボディ2", 2022105);
-    await todoTxn.wait();
-    let allTodos = await todoContract.getAllTodos();
-    console.log(allTodos);
+    /*
+     * デプロイする際0.1ETHをコントラクトに提供する
+     */
+    const todoContract = await todoContractFactory.deploy({
+        value: hardhat_1.ethers.utils.parseEther("0.1"),
+    });
+    await todoContract.deployed();
+    console.log("Contract deployed to: ", todoContract.address);
+    /*
+     * コントラクトの残高を取得（0.1ETH）であることを確認
+     */
+    let contractBalance = await hardhat_1.ethers.provider.getBalance(todoContract.address);
+    console.log("Contract balance:", hardhat_1.ethers.utils.formatEther(contractBalance));
 };
 const runMain = async () => {
     try {
