@@ -43,10 +43,11 @@ export const TodoForm: React.FC = () => {
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         // コントラクトにtodoを追加
-        const waveTxn = await todoFactoryContract.createTodo(
+        const todoTxn = await todoFactoryContract.createTodo(
           formData.title,
           formData.body,
           formData.poolAmount,
+          20221019,
           { gasLimit: 300000, }
         );
 
@@ -63,9 +64,9 @@ export const TodoForm: React.FC = () => {
             console.log("transaction", transaction);
             alert("Send finished!");
         });
-        console.log('Mining...', waveTxn.hash);
-        await waveTxn.wait();
-        console.log('Mined -- ', waveTxn.hash);
+        console.log('Mining...', todoTxn.hash);
+        await todoTxn.wait();
+        console.log('Mined -- ', todoTxn.hash);
         const todos = await todoFactoryContract.getAllTodos();
         console.log('getAllTodos:', todos);
       }
@@ -88,7 +89,7 @@ export const TodoForm: React.FC = () => {
           value: ethers.utils.parseEther("0.001"),
           nonce: await provider.getTransactionCount(currentAccount, "latest"),
           gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
-          gasLimit: ethers.utils.hexlify(100000), // 100 gwei
+          gasLimit: ethers.utils.hexlify(200000), // 100 gwei
         };
         
         signer.sendTransaction(tx).then((transaction) => {
