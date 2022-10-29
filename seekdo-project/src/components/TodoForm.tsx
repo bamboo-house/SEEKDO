@@ -47,23 +47,10 @@ export const TodoForm: React.FC = () => {
           formData.title,
           formData.body,
           formData.poolAmount,
-          20221019,
-          { gasLimit: 300000, }
+          // jsはミリ秒単位でUNIXタイムスタンプを生成するので秒単位にする
+          Math.floor(formData.deadline.getTime() / 1000),
+          { gasLimit: 300000 },
         );
-
-        const tx = {
-          from: currentAccount,
-          to: contractAddress,
-          value: ethers.utils.parseEther("0.001"),
-          nonce: await provider.getTransactionCount(currentAccount, "latest"),
-          gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
-          gasLimit: ethers.utils.hexlify(100000), // 100 gwei
-        };
-        
-        signer.sendTransaction(tx).then((transaction) => {
-            console.log("transaction", transaction);
-            alert("Send finished!");
-        });
         console.log('Mining...', todoTxn.hash);
         await todoTxn.wait();
         console.log('Mined -- ', todoTxn.hash);
@@ -86,10 +73,10 @@ export const TodoForm: React.FC = () => {
         const tx = {
           from: currentAccount,
           to: contractAddress,
-          value: ethers.utils.parseEther("0.001"),
+          value: ethers.utils.parseEther("0.0001"),
           nonce: await provider.getTransactionCount(currentAccount, "latest"),
           gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
-          gasLimit: ethers.utils.hexlify(200000), // 100 gwei
+          gasLimit: ethers.utils.hexlify(100000), // 100 gwei
         };
         
         signer.sendTransaction(tx).then((transaction) => {
@@ -156,7 +143,7 @@ export const TodoForm: React.FC = () => {
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-              label="金額"
+              label="eth"
               margin="normal"
               size="small"
               variant="outlined"

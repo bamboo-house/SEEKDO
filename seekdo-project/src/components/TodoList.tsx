@@ -29,6 +29,7 @@ export const TodoList: React.FC = () => {
             title: todo.title,
             body: todo.body,
             poolAmount: Number(todo.poolAmount),
+            deadline: new Date(todo.deadline),
           };
         });
         setTodoItems(todosCleaned);
@@ -42,7 +43,7 @@ export const TodoList: React.FC = () => {
     // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
     let todoFactoryContract: ethers.Contract;
 
-    const onNewTodo = (title: string, body: string, poolAmount: number): void => {
+    const onNewTodo = (title: string, body: string, poolAmount: number, deadline: number): void => {
       console.log('NewTodo:', title, body, poolAmount.toString());
       setTodoItems((prevState) => [
         ...prevState,
@@ -51,7 +52,7 @@ export const TodoList: React.FC = () => {
           body,
           poolAmount: Number(poolAmount),
           // 竹内
-          deadline: new Date(),
+          deadline: new Date(deadline * 1000),
           done: false,
         },
       ]);

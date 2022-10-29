@@ -22,7 +22,7 @@ export const Todo: React.FC<Props> = ({ items }) => {
           金額：{items.poolAmount}
         </Typography>
         <Typography color="text.secondary" variant="body2">
-          {/* 期限：{items.poolAmount} */}
+          期限：{items.deadline.toLocaleDateString()}
         </Typography>
         <Typography color="text.secondary" variant="body2">
           {/* 完了済み：{items.done} */}
