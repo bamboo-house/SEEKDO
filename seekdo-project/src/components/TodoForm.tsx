@@ -47,7 +47,7 @@ export const TodoForm: React.FC = () => {
           formData.title,
           formData.body,
           formData.poolAmount,
-          // jsはミリ秒単位でUNIXタイムスタンプを生成するので秒単位にする
+          // jsはミリ秒単位。UNIXタイムスタンプを生成するので秒単位にする
           Math.floor(formData.deadline.getTime() / 1000),
           { gasLimit: 300000 },
         );

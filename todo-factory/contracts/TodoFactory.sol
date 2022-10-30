@@ -9,6 +9,9 @@ contract TodoFactory {
 
   event  NewTodo(string title, string body, uint256 poolAmount, uint32 deadline);
 
+  // 竹内：アドレスとプール金額を確認
+  mapping(address => uint) balance;
+
   struct Todo {
     address creator;
     string title;
@@ -23,6 +26,14 @@ contract TodoFactory {
 
   constructor() payable {
     console.log("TodoFactory - Smart Contract!");
+  }
+
+  function getAllTodos() public view returns (Todo[] memory) {
+    return todos;
+  }
+
+  function getBalance() public view returns(uint) {
+    return balance[msg.sender];
   }
 
   // 10/5 viewをつけたときなぜか、run.tsでエラーが出る
@@ -43,13 +54,24 @@ contract TodoFactory {
     emit NewTodo(_title, _body, _poolAmount, _deadline);
   }
 
+  // 竹内：プール処理
+  function deposit() public payable {
+    balance[msg.sender] += msg.value;
+  }
+
+  function withdrow(uint _amount) public {
+    balance[msg.sender] -= _amount;
+    payable(msg.sender).transfer(_amount);
+  }
+
+  function transfer(address _to, uint _amount) public {
+    balance[msg.sender] -= _amount;
+    balance[_to] += _amount;
+  }
+  
   // 竹内：完了ボタンを押したときに返金処理とdoneをtrueにする。
   function doneTodo() public view {
     console.log("%s done todo!", msg.sender);
-  }
-
-  function getAllTodos() public view returns (Todo[] memory) {
-    return todos;
   }
 
 }
