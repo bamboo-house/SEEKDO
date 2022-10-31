@@ -24,10 +24,6 @@ contract TodoFactory {
 
   Todo[] todos;
 
-  constructor() payable {
-    console.log("TodoFactory - Smart Contract!");
-  }
-
   function getAllTodos() public view returns (Todo[] memory) {
     return todos;
   }
@@ -68,7 +64,7 @@ contract TodoFactory {
     balance[msg.sender] -= _amount;
     balance[_to] += _amount;
   }
-  
+
   // 竹内：完了ボタンを押したときに返金処理とdoneをtrueにする。
   function doneTodo() public view {
     console.log("%s done todo!", msg.sender);
