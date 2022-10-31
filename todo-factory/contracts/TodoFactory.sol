@@ -60,11 +60,6 @@ contract TodoFactory {
     payable(msg.sender).transfer(_amount);
   }
 
-  function transfer(address _to, uint _amount) public {
-    balance[msg.sender] -= _amount;
-    balance[_to] += _amount;
-  }
-
   // 竹内：完了ボタンを押したときに返金処理とdoneをtrueにする。
   function doneTodo() public view {
     console.log("%s done todo!", msg.sender);
