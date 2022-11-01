@@ -2,6 +2,7 @@ import { ethers } from "hardhat";
 
 const main = async (): Promise<void> => {
   const todoContractFactory = await ethers.getContractFactory("TodoFactory");
+  const [_, randomPerson] = await ethers.getSigners();
 
   const todoContract = await todoContractFactory.deploy();
   await todoContract.deployed();
@@ -24,6 +25,14 @@ const main = async (): Promise<void> => {
     "Contract balance:",
     ethers.utils.formatEther(contractBalance)
   );
+
+  // 他のユーザーでも送ってみる
+  depositTxn = await todoContract.connect(randomPerson).deposit({
+    value: ethers.utils.parseEther("0.3")
+  });
+
+  await depositTxn.wait();
+  console.log("0.3ETH 入金")
 
   // withdrowで0.01eth取り出す
   const withdrowTxn = await todoContract.withdrow(ethers.utils.parseEther("0.05"));

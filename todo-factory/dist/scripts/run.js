@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const hardhat_1 = require("hardhat");
 const main = async () => {
     const todoContractFactory = await hardhat_1.ethers.getContractFactory("TodoFactory");
+    const [_, randomPerson] = await hardhat_1.ethers.getSigners();
     const todoContract = await todoContractFactory.deploy();
     await todoContract.deployed();
     console.log("Contract deployed to: ", todoContract.address);
@@ -17,6 +18,11 @@ const main = async () => {
      */
     let contractBalance = await hardhat_1.ethers.provider.getBalance(todoContract.address);
     console.log("Contract balance:", hardhat_1.ethers.utils.formatEther(contractBalance));
+    depositTxn = await todoContract.connect(randomPerson).deposit({
+        value: hardhat_1.ethers.utils.parseEther("0.3")
+    });
+    await depositTxn.wait();
+    console.log("0.3ETH 入金");
     // withdrowで0.01eth取り出す
     const withdrowTxn = await todoContract.withdrow(hardhat_1.ethers.utils.parseEther("0.05"));
     await withdrowTxn.wait();
