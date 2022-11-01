@@ -18,6 +18,7 @@ const main = async () => {
      */
     let contractBalance = await hardhat_1.ethers.provider.getBalance(todoContract.address);
     console.log("Contract balance:", hardhat_1.ethers.utils.formatEther(contractBalance));
+    // 他のユーザーでも送ってみる
     depositTxn = await todoContract.connect(randomPerson).deposit({
         value: hardhat_1.ethers.utils.parseEther("0.3")
     });
@@ -30,6 +31,10 @@ const main = async () => {
     // 再度、残高を確認
     contractBalance = await hardhat_1.ethers.provider.getBalance(todoContract.address);
     console.log("Contract balance:", hardhat_1.ethers.utils.formatEther(contractBalance));
+    let userBalance = await todoContract.getBalance();
+    console.log("userBalance balance:", hardhat_1.ethers.utils.formatEther(userBalance));
+    userBalance = await todoContract.connect(randomPerson).getBalance();
+    console.log("random userBalance balance:", hardhat_1.ethers.utils.formatEther(userBalance));
 };
 const runMain = async () => {
     try {

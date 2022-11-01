@@ -47,6 +47,19 @@ const main = async (): Promise<void> => {
     "Contract balance:",
     ethers.utils.formatEther(contractBalance)
   );
+
+  let userBalance = await todoContract.getBalance();
+  console.log(
+    "userBalance balance:",
+    ethers.utils.formatEther(userBalance)
+  );
+
+  userBalance = await todoContract.connect(randomPerson).getBalance();
+  console.log(
+    "random userBalance balance:",
+    ethers.utils.formatEther(userBalance)
+  );
+
 }; 
 
 const runMain = async () => {
