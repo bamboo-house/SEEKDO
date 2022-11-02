@@ -63,7 +63,7 @@ export const TodoForm: React.FC = () => {
   };
 
   // 竹内：eth送信処理のサンプル（動くこと確認済み）
-  const sample = async () => {
+  const deposit = async (poolAmount: string) => {
     console.log("カレントアカウント", currentAccount);
     try {
       const { ethereum }: any = window;
@@ -73,7 +73,7 @@ export const TodoForm: React.FC = () => {
         const tx = {
           from: currentAccount,
           to: contractAddress,
-          value: ethers.utils.parseEther("0.0001"),
+          value: ethers.utils.parseEther(poolAmount),
           nonce: await provider.getTransactionCount(currentAccount, "latest"),
           gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
           gasLimit: ethers.utils.hexlify(100000), // 100 gwei

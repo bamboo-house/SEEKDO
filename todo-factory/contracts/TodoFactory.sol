@@ -39,7 +39,7 @@ contract TodoFactory {
     console.log("poolAmount: %s", _poolAmount);
     console.log("deadline: %s", _deadline);
 
-    // 竹内: _deadlineを正しい形に変換？
+    // 竹内: _deadlineを正しい型に変換？
 
     // 竹内： 金額をプールする処理
 
