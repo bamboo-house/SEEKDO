@@ -7,9 +7,7 @@ const main = async () => {
     console.log("Deploying contracts with account: ", deployer.address);
     console.log("Account balance: ", accountBalance.toString());
     const todoFactoryContract = await hardhat_1.ethers.getContractFactory("TodoFactory");
-    const todoContract = await todoFactoryContract.deploy({
-        value: hardhat_1.ethers.utils.parseEther("0.001"),
-    });
+    const todoContract = await todoFactoryContract.deploy();
     await todoContract.deployed();
     console.log("TodoFactory address: ", todoContract.address);
 };

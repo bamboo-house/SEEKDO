@@ -7,9 +7,7 @@ const main = async (): Promise<void> => {
   console.log("Account balance: ", accountBalance.toString());
 
   const todoFactoryContract = await ethers.getContractFactory("TodoFactory");
-  const todoContract = await todoFactoryContract.deploy({
-    value: ethers.utils.parseEther("0.001"),
-  });
+  const todoContract = await todoFactoryContract.deploy();
 
   await todoContract.deployed();
 

@@ -8,8 +8,6 @@ import { TodoList } from './components/TodoList';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Grid, Box } from '@mui/material';
-// コントラクト関連のライブラリ
-// import abi from "./utils/TodoFactory.json";
 
 const App: React.FC = () => {
   const { checkIfWalletIsConnected } = AccountContainer.useContainer();

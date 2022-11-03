@@ -42,18 +42,27 @@ export const TodoForm: React.FC = () => {
         const signer = provider.getSigner();
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
+        // console.log(formData.poolAmount.toString());
         // コントラクトにtodoを追加
-        const todoTxn = await todoFactoryContract.createTodo(
+        let todoTxn = await todoFactoryContract.createTodo(
           formData.title,
           formData.body,
-          formData.poolAmount,
+          ethers.utils.parseUnits(Number(formData.poolAmount).toString()),
           // jsはミリ秒単位。UNIXタイムスタンプを生成するので秒単位にする
           Math.floor(formData.deadline.getTime() / 1000),
           { gasLimit: 300000 },
         );
+        
         console.log('Mining...', todoTxn.hash);
         await todoTxn.wait();
         console.log('Mined -- ', todoTxn.hash);
+
+        // 送金処理
+        todoTxn = await todoFactoryContract.deposit({value: ethers.utils.parseEther(Number(formData.poolAmount).toString())});
+        console.log('送金中...', todoTxn.hash);
+        await todoTxn.wait();
+        console.log('送金中 -- ', todoTxn.hash);
+
         const todos = await todoFactoryContract.getAllTodos();
         console.log('getAllTodos:', todos);
       }
@@ -61,37 +70,6 @@ export const TodoForm: React.FC = () => {
       console.log(error);
     }
   };
-
-  // 竹内：eth送信処理のサンプル（動くこと確認済み）
-  const deposit = async (poolAmount: string) => {
-    console.log("カレントアカウント", currentAccount);
-    try {
-      const { ethereum }: any = window;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const tx = {
-          from: currentAccount,
-          to: contractAddress,
-          value: ethers.utils.parseEther(poolAmount),
-          nonce: await provider.getTransactionCount(currentAccount, "latest"),
-          gasPrice: ethers.utils.hexlify(await provider.getGasPrice()),
-          gasLimit: ethers.utils.hexlify(100000), // 100 gwei
-        };
-        
-        signer.sendTransaction(tx).then((transaction) => {
-            console.log("transaction", transaction);
-            alert("Send finished!");
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    // sample();
-  }, []);
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -142,8 +120,8 @@ export const TodoForm: React.FC = () => {
               {...field}
               error={fieldState.invalid}
               helperText={fieldState.error?.message}
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-              label="eth"
+              inputProps={{ inputMode: 'numeric', type: 'number', step: '0.00001' }}
+              label="ETH"
               margin="normal"
               size="small"
               variant="outlined"
