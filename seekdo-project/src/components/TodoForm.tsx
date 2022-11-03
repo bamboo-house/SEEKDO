@@ -47,7 +47,7 @@ export const TodoForm: React.FC = () => {
         let todoTxn = await todoFactoryContract.createTodo(
           formData.title,
           formData.body,
-          ethers.utils.parseUnits(Number(formData.poolAmount).toString()),
+          ethers.utils.parseEther(Number(formData.poolAmount).toString()),
           // jsはミリ秒単位。UNIXタイムスタンプを生成するので秒単位にする
           Math.floor(formData.deadline.getTime() / 1000),
           { gasLimit: 300000 },
@@ -61,7 +61,7 @@ export const TodoForm: React.FC = () => {
         todoTxn = await todoFactoryContract.deposit({value: ethers.utils.parseEther(Number(formData.poolAmount).toString())});
         console.log('送金中...', todoTxn.hash);
         await todoTxn.wait();
-        console.log('送金中 -- ', todoTxn.hash);
+        console.log('送金完了! -- ', todoTxn.hash);
 
         const todos = await todoFactoryContract.getAllTodos();
         console.log('getAllTodos:', todos);

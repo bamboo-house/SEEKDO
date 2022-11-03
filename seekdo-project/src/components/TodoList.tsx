@@ -28,7 +28,7 @@ export const TodoList: React.FC = () => {
           return {
             title: todo.title,
             body: todo.body,
-            poolAmount: Number(todo.poolAmount),
+            poolAmount: Number(ethers.utils.formatEther(todo.poolAmount)),
             deadline: new Date(todo.deadline),
           };
         });
@@ -44,14 +44,12 @@ export const TodoList: React.FC = () => {
     let todoFactoryContract: ethers.Contract;
 
     const onNewTodo = (title: string, body: string, poolAmount: number, deadline: number): void => {
-      console.log('NewTodo:', title, body, poolAmount.toString());
       setTodoItems((prevState) => [
         ...prevState,
         {
           title,
           body,
-          poolAmount: Number(poolAmount),
-          // 竹内
+          poolAmount: Number(ethers.utils.formatEther(poolAmount)),
           deadline: new Date(deadline * 1000),
           done: false,
         },
