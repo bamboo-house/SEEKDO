@@ -12,7 +12,7 @@ const main = async () => {
         value: hardhat_1.ethers.utils.parseEther("0.1")
     });
     await depositTxn.wait();
-    console.log("0.1ETH 入金");
+    console.log("オーナーで0.1ETH 入金");
     /*
      * コントラクトの残高を取得（0.1ETH）であることを確認
      */
@@ -23,18 +23,18 @@ const main = async () => {
         value: hardhat_1.ethers.utils.parseEther("0.3")
     });
     await depositTxn.wait();
-    console.log("0.3ETH 入金");
+    console.log("ランダムユーザーで0.3ETH 入金");
     // withdrowで0.01eth取り出す
     const withdrowTxn = await todoContract.withdrow(hardhat_1.ethers.utils.parseEther("0.05"));
     await withdrowTxn.wait();
-    console.log("0.05ETH 出金");
+    console.log("オーナーが0.05ETH 出金");
     // 再度、残高を確認
     contractBalance = await hardhat_1.ethers.provider.getBalance(todoContract.address);
     console.log("Contract balance:", hardhat_1.ethers.utils.formatEther(contractBalance));
     let userBalance = await todoContract.getBalance();
-    console.log("userBalance balance:", hardhat_1.ethers.utils.formatEther(userBalance));
+    console.log("オーナー balance:", hardhat_1.ethers.utils.formatEther(userBalance));
     userBalance = await todoContract.connect(randomPerson).getBalance();
-    console.log("random userBalance balance:", hardhat_1.ethers.utils.formatEther(userBalance));
+    console.log("ランダムユーザー balance:", hardhat_1.ethers.utils.formatEther(userBalance));
 };
 const runMain = async () => {
     try {

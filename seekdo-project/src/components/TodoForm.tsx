@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AccountContainer } from '../common/containers/AccountContainer';
 // 型
 import { TodoType } from '../common/Types';
@@ -42,7 +42,6 @@ export const TodoForm: React.FC = () => {
         const signer = provider.getSigner();
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        // console.log(formData.poolAmount.toString());
         // コントラクトにtodoを追加
         let todoTxn = await todoFactoryContract.createTodo(
           formData.title,
@@ -63,6 +62,9 @@ export const TodoForm: React.FC = () => {
         await todoTxn.wait();
         console.log('送金完了! -- ', todoTxn.hash);
 
+        // withdrowテスト
+        // todoTxn = await todoFactoryContract.withdrow
+
         const todos = await todoFactoryContract.getAllTodos();
         console.log('getAllTodos:', todos);
       }
@@ -73,7 +75,6 @@ export const TodoForm: React.FC = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column' }}>
-      {/* ControllerTextFieldみたいなコンポーネントが必要かも、他にはControllerDatePickerなど */}
       <Controller
         name="title"
         control={control}
