@@ -51,7 +51,6 @@ export const TodoForm: React.FC = () => {
           Math.floor(formData.deadline.getTime() / 1000),
           { gasLimit: 300000 },
         );
-        
         console.log('Mining...', todoTxn.hash);
         await todoTxn.wait();
         console.log('Mined -- ', todoTxn.hash);
@@ -61,9 +60,6 @@ export const TodoForm: React.FC = () => {
         console.log('送金中...', todoTxn.hash);
         await todoTxn.wait();
         console.log('送金完了! -- ', todoTxn.hash);
-
-        // withdrowテスト
-        // todoTxn = await todoFactoryContract.withdrow
 
         const todos = await todoFactoryContract.getAllTodos();
         console.log('getAllTodos:', todos);
