@@ -18,7 +18,7 @@ contract TodoFactory {
     string body;
     uint256 poolAmount;
     uint32 deadline;
-    bool done;
+    bool isDone;
     uint32 timestamp;
   }
 
@@ -41,8 +41,6 @@ contract TodoFactory {
 
     // 竹内: _deadlineを正しい型に変換？
 
-    // 竹内： 金額をプールする処理
-
     // 受け取ったデータをブロックチェーン上に保存する
     todos.push(Todo(msg.sender, _title, _body, _poolAmount, _deadline, false, uint32(block.timestamp)));
 
@@ -63,6 +61,10 @@ contract TodoFactory {
   // 竹内：完了ボタンを押したときに返金処理とdoneをtrueにする。
   function doneTodo() public view {
     console.log("%s done todo!", msg.sender);
+    // isDoneがfalseの場合下記実行
+    // deadlineが今の時刻を超えている場合下記実行
+    // isDoneをtrueにする
+    // amountの金額をwithdrowする
   }
 
 }
