@@ -11,6 +11,7 @@ contract TodoFactory {
 
   // 竹内：アドレスとプール金額を確認
   mapping(address => uint) balance;
+  mapping(address => Todo[]) ownerTodos;
 
   struct Todo {
     address creator;
