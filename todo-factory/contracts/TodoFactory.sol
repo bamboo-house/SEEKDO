@@ -11,6 +11,8 @@ contract TodoFactory {
 
   // 竹内：アドレスとプール金額を確認
   mapping(address => uint) balance;
+
+  // 竹内：データ構造をどうするか考える必要あり、リレーショナルデータベースのやり方を学ぶ？
   mapping(address => Todo[]) ownerTodos;
 
   struct Todo {
