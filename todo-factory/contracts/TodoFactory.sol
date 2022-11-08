@@ -7,16 +7,15 @@ import "hardhat/console.sol";
 
 contract TodoFactory {
 
-  event  NewTodo(string title, string body, uint256 poolAmount, uint32 deadline);
+  event  NewTodo(uint id, address, string title, string body, uint256 poolAmount, uint32 deadline);
 
   // 竹内：アドレスとプール金額を確認
   mapping(address => uint) balance;
-
-  // 竹内：データ構造をどうするか考える必要あり、リレーショナルデータベースのやり方を学ぶ？
-  mapping(address => Todo[]) ownerTodos;
+  mapping(address => uint) todoCountByOwner;
 
   struct Todo {
-    address creator;
+    uint id;
+    address owner;
     string title;
     string body;
     uint256 poolAmount;
@@ -27,8 +26,16 @@ contract TodoFactory {
 
   Todo[] todos;
 
-  function getAllTodos() public view returns (Todo[] memory) {
-    return todos;
+  function getAllTodos() public view returns(Todo[] memory) {
+    Todo[] memory result = new Todo[](todoCountByOwner[msg.sender]);
+    uint counter = 0;
+    for (uint i = 0; i < todos.length; i++) {
+        if (todos[i].owner == msg.sender) {
+            result[counter] = todos[i];
+            counter += 1;
+        }
+    }
+    return result;
   }
 
   function getBalance() public view returns(uint) {
@@ -45,10 +52,12 @@ contract TodoFactory {
     // 竹内: _deadlineを正しい型に変換？
 
     // 受け取ったデータをブロックチェーン上に保存する
-    todos.push(Todo(msg.sender, _title, _body, _poolAmount, _deadline, false, uint32(block.timestamp)));
+    uint id = todos.length + 1;
+    todos.push(Todo(id, msg.sender, _title, _body, _poolAmount, _deadline, false, uint32(block.timestamp)));
+    todoCountByOwner[msg.sender]++;
 
     // 新しいTdodoを作ったことをフロントに伝える
-    emit NewTodo(_title, _body, _poolAmount, _deadline);
+    emit NewTodo(id, msg.sender, _title, _body, _poolAmount, _deadline);
   }
 
   // 竹内：プール処理
