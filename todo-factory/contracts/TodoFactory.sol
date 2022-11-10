@@ -15,7 +15,6 @@ contract TodoFactory {
     uint256 amount;
     uint32 deadline;
     bool isDone;
-    // uint32 timestamp;
   }
 
   Todo[] todos;
@@ -51,10 +50,9 @@ contract TodoFactory {
   }
 
   function doneTodo(uint _id) public {
-    require(todos[_id - 1].owner == msg.sender, "Do not have this Todo");
+    require(todos[_id - 1].owner == msg.sender, "Don't have this Todo");
     require(todos[_id - 1].isDone == false, "Already done");
-    // 竹内： deadline以下ならOK
-    // require(todos[_id - 1].deadline <= timestamp);
+    require(todos[_id - 1].deadline >= block.timestamp, "Deadline has passed");
     _withdraw(todos[_id - 1].amount);
     todos[_id - 1].isDone = true;
   }
