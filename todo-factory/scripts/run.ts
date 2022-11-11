@@ -8,55 +8,90 @@ const main = async (): Promise<void> => {
   await todoContract.deployed();
   console.log("Contract deployed to: ", todoContract.address);
 
-  // depositで0.1ethを送る
-  let depositTxn = await todoContract.deposit({
-    value: ethers.utils.parseEther("0.1")
-  });
-  await depositTxn.wait();
-  console.log("オーナーで0.1ETH 入金")
+  // 【流れ】
+  // 1. todoを作る
+  // 2. 入金する
+  // 3. 残高を確認する
+  // 4. todoを完了する
+  // 5. 再度残高を確認して減っているか確認
+  // 6. 他のユーザーで1~5をやってみる
 
-  /*
-   * コントラクトの残高を取得（0.1ETH）であることを確認
-   */
-  let contractBalance = await ethers.provider.getBalance(
-    todoContract.address
+  const date = new Date(2023, 1, 1);
+  let todoTxn = await todoContract.createTodo(
+    "禿頭",
+    "はげ太郎",
+    ethers.utils.parseEther("0.1"),
+    Math.floor(date.getTime() / 1000)
   );
+  await todoTxn.wait();
+  console.log("Todo1を作成");
+
+  // 入金する
+  todoTxn = await todoContract.deposit({
+    value: ethers.utils.parseEther("0.5")
+  });
+  await todoTxn.wait();
+  console.log("オーナーで0.5ETH 入金");
+
+  // 残高を確認する
+  let contractBalance = await todoContract.getBalance();
   console.log(
     "Contract balance:",
     ethers.utils.formatEther(contractBalance)
   );
 
-  // 他のユーザーでも送ってみる
-  depositTxn = await todoContract.connect(randomPerson).deposit({
-    value: ethers.utils.parseEther("0.3")
-  });
-  await depositTxn.wait();
-  console.log("ランダムユーザーで0.3ETH 入金")
-
-  // withdrowで0.01eth取り出す
-  const withdrowTxn = await todoContract.withdrow(ethers.utils.parseEther("0.05"));
-  await withdrowTxn.wait();
-  console.log("オーナーが0.05ETH 出金");
+  // todoを完了する
+  todoTxn = await todoContract.doneTodo(1);
+  await todoTxn.wait();
+  console.log("Todo1を完了する");
 
   // 再度、残高を確認
-  contractBalance = await ethers.provider.getBalance(
-    todoContract.address
-  );
+  contractBalance = await todoContract.getBalance();
   console.log(
     "Contract balance:",
     ethers.utils.formatEther(contractBalance)
   );
 
-  let userBalance = await todoContract.getBalance();
+  let Alltodos = await todoContract.getAllTodos();
+  console.log("全てのtodos", Alltodos);
+
+  // 他のユーザーでtodo作成
+  todoTxn = await todoContract.connect(randomPerson).createTodo(
+    "禿頭２",
+    "はげ太郎2",
+    ethers.utils.parseEther("0.2"),
+    Math.floor(date.getTime() / 1000)
+  );
+  await todoTxn.wait();
+  console.log("ランダムユーザーでTodo2を作成");
+  
+  Alltodos = await todoContract.connect(randomPerson).getAllTodos();
+  console.log("全てのtodos", Alltodos);
+
+  // 入金する
+  todoTxn = await todoContract.connect(randomPerson).deposit({
+    value: ethers.utils.parseEther("0.8")
+  });
+  await todoTxn.wait();
+  console.log("ランダムユーザーで0.8ETH 入金");
+
+  // 残高を確認する
+  contractBalance = await todoContract.connect(randomPerson).getBalance();
   console.log(
-    "オーナー balance:",
-    ethers.utils.formatEther(userBalance)
+    "ランダムユーザーのContract balance:",
+    ethers.utils.formatEther(contractBalance)
   );
 
-  userBalance = await todoContract.connect(randomPerson).getBalance();
+  // todoを完了する。idが2であることを確認
+  todoTxn = await todoContract.connect(randomPerson).doneTodo(2);
+  await todoTxn.wait();
+  console.log("Todo2を完了する");
+
+  // 再度、残高を確認
+  contractBalance = await todoContract.connect(randomPerson).getBalance();
   console.log(
-    "ランダムユーザー balance:",
-    ethers.utils.formatEther(userBalance)
+    "Contract balance:",
+    ethers.utils.formatEther(contractBalance)
   );
 
 }; 

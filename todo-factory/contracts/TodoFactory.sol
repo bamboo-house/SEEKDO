@@ -57,7 +57,6 @@ contract TodoFactory {
     todos[_id - 1].isDone = true;
   }
 
-
   /*
   *  プール処理
   */
