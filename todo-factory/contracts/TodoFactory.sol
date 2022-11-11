@@ -4,8 +4,9 @@
 pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
+import "./Ownable.sol";
 
-contract TodoFactory {
+contract TodoFactory is Ownable {
 
   struct Todo {
     uint id;
@@ -43,13 +44,13 @@ contract TodoFactory {
     return result;
   }
 
-  function createTodo(string memory _title, string memory _body, uint _amount, uint32 _deadline) public {
+  function createTodo(string memory _title, string memory _body, uint _amount, uint32 _deadline) public onlyOwner {
     uint id = todos.length + 1;
     todos.push(Todo(id, msg.sender, _title, _body, _amount, _deadline, false));
     ownerTodoIds[msg.sender].push(id);
   }
 
-  function doneTodo(uint _id) public {
+  function doneTodo(uint _id) public onlyOwner {
     require(todos[_id - 1].owner == msg.sender, "Don't have this Todo");
     require(todos[_id - 1].isDone == false, "Already done");
     require(todos[_id - 1].deadline >= block.timestamp, "Deadline has passed");
@@ -64,7 +65,7 @@ contract TodoFactory {
     return balance[msg.sender];
   }
 
-  function deposit() public payable {
+  function deposit() public payable onlyOwner {
     balance[msg.sender] += msg.value;
   }
 
