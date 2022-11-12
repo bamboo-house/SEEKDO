@@ -51,10 +51,11 @@ contract TodoFactory is Ownable {
   }
 
   function doneTodo(uint _id) public onlyOwner {
-    require(todos[_id - 1].owner == msg.sender, "Don't have this Todo");
-    require(todos[_id - 1].isDone == false, "Already done");
-    require(todos[_id - 1].deadline >= block.timestamp, "Deadline has passed");
-    _withdraw(todos[_id - 1].amount);
+    Todo memory copiedTodo = todos[_id - 1];
+    require(copiedTodo.owner == msg.sender, "Don't have this todo");
+    require(copiedTodo.isDone == false, "Already done");
+    require(copiedTodo.deadline >= block.timestamp, "Deadline has passed");
+    _withdraw(copiedTodo.amount);
     todos[_id - 1].isDone = true;
   }
 
@@ -74,7 +75,8 @@ contract TodoFactory is Ownable {
   */
   function _withdraw(uint _amount) internal {
     require(balance[msg.sender] >= _amount, "Insufficient balance");
-    uint beforeWithdraw = balance[msg.sender]; 
+    uint beforeWithdraw = balance[msg.sender];
+    // check effect interaction（もし、call関数使うならDAOハッキング事件対策のために送金前に引く）
     balance[msg.sender] -= _amount;
     payable(msg.sender).transfer(_amount);
     uint afterWithdraw = balance[msg.sender];
