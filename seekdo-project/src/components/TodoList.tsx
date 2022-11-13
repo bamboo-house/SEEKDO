@@ -26,10 +26,12 @@ export const TodoList: React.FC = () => {
         const todos = await todoFactoryContract.getAllTodos();
         const todosCleaned = todos.map((todo: TodoType) => {
           return {
+            id: todo.id,
             title: todo.title,
             body: todo.body,
-            poolAmount: Number(ethers.utils.formatEther(todo.poolAmount)),
+            amount: Number(ethers.utils.formatEther(todo.amount)),
             deadline: new Date(todo.deadline),
+            isDone: todo.isDone,
           };
         });
         setTodoItems(todosCleaned);
@@ -43,15 +45,16 @@ export const TodoList: React.FC = () => {
     // ここで、NewTodoイベントを受け取って、todoItemsのstate更新する
     let todoFactoryContract: ethers.Contract;
 
-    const onNewTodo = (title: string, body: string, poolAmount: number, deadline: number): void => {
+    const onNewTodo = (id: number, title: string, body: string, amount: number, deadline: number, isDone: boolean): void => {
       setTodoItems((prevState) => [
         ...prevState,
         {
+          id,
           title,
           body,
-          poolAmount: Number(ethers.utils.formatEther(poolAmount)),
+          amount: Number(ethers.utils.formatEther(amount)),
           deadline: new Date(deadline * 1000),
-          done: false,
+          isDone,
         },
       ]);
     };

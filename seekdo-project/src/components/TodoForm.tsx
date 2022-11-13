@@ -26,15 +26,14 @@ export const TodoForm: React.FC = () => {
       title: '',
       body: '',
       // 空の整数を設定しないと警告がでる
-      poolAmount: 0,
+      amount: 0,
       deadline: new Date(),
-      done: false,
+      isDone: false,
     },
   });
 
   // フォームの送信時
   const onSubmit: SubmitHandler<TodoType> = async (formData) => {
-    // console.log(formData.deadline.getTime());
     try {
       const { ethereum }: any = window;
       if (ethereum) {
@@ -42,24 +41,24 @@ export const TodoForm: React.FC = () => {
         const signer = provider.getSigner();
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
+        // 送金処理(先に送金できるか確認)
+        let todoTxn = await todoFactoryContract.deposit({value: ethers.utils.parseEther(Number(formData.amount).toString())});
+        console.log('送金中...', todoTxn.hash);
+        await todoTxn.wait();
+        console.log('送金完了! -- ', todoTxn.hash);
+
         // コントラクトにtodoを追加
-        let todoTxn = await todoFactoryContract.createTodo(
+        todoTxn = await todoFactoryContract.createTodo(
           formData.title,
           formData.body,
-          ethers.utils.parseEther(Number(formData.poolAmount).toString()),
-          // jsはミリ秒単位。UNIXタイムスタンプを生成するので秒単位にする
+          ethers.utils.parseEther(Number(formData.amount).toString()),
+          // jsはミリ秒単位である。UNIXタイムスタンプを生成するので秒単位にする
           Math.floor(formData.deadline.getTime() / 1000),
-          { gasLimit: 300000 },
+          // { gasLimit: 300000 },
         );
         console.log('Mining...', todoTxn.hash);
         await todoTxn.wait();
         console.log('Mined -- ', todoTxn.hash);
-
-        // 送金処理
-        todoTxn = await todoFactoryContract.deposit({value: ethers.utils.parseEther(Number(formData.poolAmount).toString())});
-        console.log('送金中...', todoTxn.hash);
-        await todoTxn.wait();
-        console.log('送金完了! -- ', todoTxn.hash);
 
         const todos = await todoFactoryContract.getAllTodos();
         console.log('getAllTodos:', todos);
@@ -109,7 +108,7 @@ export const TodoForm: React.FC = () => {
         )}
       />
       <Controller
-        name="poolAmount"
+        name="amount"
         control={control}
         render={({ field, fieldState }) => (
           <>

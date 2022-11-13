@@ -1,10 +1,11 @@
 export interface TodoType {
+  id: number;
   title: string;
   body: string;
-  poolAmount: number;
+  amount: number;
   // numberかどうかわからない
   deadline: Date;
-  done: boolean;
+  isDone: boolean;
 }
 
 declare global {

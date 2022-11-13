@@ -48,7 +48,7 @@ export const Todo: React.FC<Props> = ({ items }) => {
           {items.body}
         </Typography>
         <Typography color="text.secondary" variant="body2">
-          金額：{items.poolAmount}
+          金額：{items.amount}
         </Typography>
         <Typography color="text.secondary" variant="body2">
           期限：{items.deadline.toLocaleDateString()}
