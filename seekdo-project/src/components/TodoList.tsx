@@ -30,7 +30,7 @@ export const TodoList: React.FC = () => {
             title: todo.title,
             body: todo.body,
             amount: Number(ethers.utils.formatEther(todo.amount)),
-            deadline: new Date(todo.deadline),
+            deadline: new Date(Number(todo.deadline) * 1000),
             isDone: todo.isDone,
           };
         });

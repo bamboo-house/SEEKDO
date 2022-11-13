@@ -64,6 +64,7 @@ export const TodoForm: React.FC = () => {
         console.log('getAllTodos:', todos);
       }
     } catch (error) {
+      alert("ウォレットの残高を確認してください");
       console.log(error);
     }
   };
