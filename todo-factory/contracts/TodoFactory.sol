@@ -13,7 +13,7 @@ contract TodoFactory is Ownable {
     address owner;
     string title;
     string body;
-    uint256 amount;
+    uint amount;
     uint32 deadline;
     bool isDone;
   }
@@ -22,6 +22,8 @@ contract TodoFactory is Ownable {
   // OwnerとTodoは「1対多」の関係なので、OwnerにTodoの情報をもたすために記述
   mapping(address => uint[]) ownerTodoIds;
   mapping(address => uint) balance;
+
+  event NewTodo(uint id, string title, string body, uint amount, uint32 deadline, bool isDone);
 
   /*
   *  Todo処理
@@ -46,8 +48,10 @@ contract TodoFactory is Ownable {
 
   function createTodo(string memory _title, string memory _body, uint _amount, uint32 _deadline) public onlyOwner {
     uint id = todos.length + 1;
-    todos.push(Todo(id, msg.sender, _title, _body, _amount, _deadline, false));
+    bool isDone = false;
+    todos.push(Todo(id, msg.sender, _title, _body, _amount, _deadline, isDone));
     ownerTodoIds[msg.sender].push(id);
+    emit NewTodo(id, _title, _body, _amount, _deadline, isDone);
   }
 
   function doneTodo(uint _id) public onlyOwner {
