@@ -16,7 +16,7 @@ export const Todo: React.FC<Props> = ({ items }) => {
   const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
-  const doneTodo = async () => {
+  const doneTodo = async (id: number) => {
     try {
       const { ethereum }: any = window;
       if (ethereum) {
@@ -24,14 +24,10 @@ export const Todo: React.FC<Props> = ({ items }) => {
         const signer = provider.getSigner();
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
         
-        // withdrowテスト
-        const todoTxn = await todoFactoryContract.withdrow(ethers.utils.parseEther("0.01"))
+        const todoTxn = await todoFactoryContract.doneTodo(id);
         console.log('出金中...', todoTxn.hash);
         await todoTxn.wait();
         console.log('出金完了! --', todoTxn.hash)
-  
-        const balance = await todoFactoryContract.getBalance();
-        console.log('残高--', Number(ethers.utils.formatEther(balance)));
       }
     } catch (error) {
       console.log(error);
@@ -41,6 +37,9 @@ export const Todo: React.FC<Props> = ({ items }) => {
   return (
     <Card sx={{ mb: 3 }}>
       <CardContent>
+        {/* <Typography gutterBottom component="div">
+          Id: {items.id}
+        </Typography> */}
         <Typography gutterBottom component="div">
           {items.title}
         </Typography>
@@ -54,11 +53,11 @@ export const Todo: React.FC<Props> = ({ items }) => {
           期限：{items.deadline.toLocaleDateString()}
         </Typography>
         <Typography color="text.secondary" variant="body2">
-          {/* 完了済み：{items.done} */}
+          完了済み：{items.isDone.toString()}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => {doneTodo()}} color="success" size="small" sx={{ ml: 'auto' }}>
+        <Button onClick={() => {doneTodo(items.id)}} color="success" size="small" sx={{ ml: 'auto' }}>
           完了
         </Button>
       </CardActions>

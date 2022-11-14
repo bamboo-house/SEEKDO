@@ -14,7 +14,7 @@ export const TodoList: React.FC = () => {
   const contractAddress = LOCAL_CONSTANT.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
 
-  const getAllTodos = async () => {
+  const getOwnerTodos = async () => {
     const { ethereum }: any = window;
 
     try {
@@ -23,10 +23,10 @@ export const TodoList: React.FC = () => {
         const signer = provider.getSigner();
         const todoFactoryContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-        const todos = await todoFactoryContract.getAllTodos();
+        const todos = await todoFactoryContract.getOwnerTodos();
         const todosCleaned = todos.map((todo: TodoType) => {
           return {
-            id: todo.id,
+            id: Number(todo.id),
             title: todo.title,
             body: todo.body,
             amount: Number(ethers.utils.formatEther(todo.amount)),
@@ -79,7 +79,7 @@ export const TodoList: React.FC = () => {
 
   useEffect(() => {
     if (currentAccount) {
-      getAllTodos();
+      getOwnerTodos();
     }
   }, [currentAccount]);
 
