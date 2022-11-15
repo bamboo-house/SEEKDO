@@ -2,7 +2,7 @@ import React from 'react';
 // 型
 import { TodoType } from '../common/Types';
 // mui
-import { Card, CardActions, CardContent, Button, Typography } from '@mui/material';
+import { Card, CardMedia, CardActions, CardContent, Button, Typography } from '@mui/material';
 // コントラクト関連ライブラリ
 import { ethers } from 'ethers';
 import { LOCAL_CONSTANT } from '../common/LocalConstant';
@@ -36,6 +36,12 @@ export const Todo: React.FC<Props> = ({ items }) => {
 
   return (
     <Card sx={{ mb: 3 }}>
+      <CardMedia
+        sx={{paddingTop: "40.25%"}}
+        image={
+          "https://img.freepik.com/free-vector/beer-with-bubbles-foam-background_107791-2563.jpg?w=2000&t=st=1668497919~exp=1668498519~hmac=c939bcf6c73975fc1871ac467dc0c335177a3f1d87f69c1c21e4dcf1ed0ceca2"
+        }
+      />
       <CardContent>
         {/* <Typography gutterBottom component="div">
           Id: {items.id}
