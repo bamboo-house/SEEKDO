@@ -43,10 +43,10 @@ export const Todo: React.FC<Props> = ({ items }) => {
         }
       />
       <CardContent>
-        {/* <Typography gutterBottom component="div">
+        <Typography component="div">
           Id: {items.id}
-        </Typography> */}
-        <Typography gutterBottom component="div">
+        </Typography>
+        <Typography component="div">
           {items.title}
         </Typography>
         <Typography color="text.secondary" variant="body1">
