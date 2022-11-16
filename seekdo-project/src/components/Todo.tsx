@@ -2,7 +2,7 @@ import React from 'react';
 // 型
 import { TodoType } from '../common/Types';
 // mui
-import { Card, CardMedia, CardActions, CardContent, Button, Typography } from '@mui/material';
+import { Card, CardMedia, CardActions, CardContent, Button, Typography, Chip, Box, Stack } from '@mui/material';
 // コントラクト関連ライブラリ
 import { ethers } from 'ethers';
 import { LOCAL_CONSTANT } from '../common/LocalConstant';
@@ -43,29 +43,36 @@ export const Todo: React.FC<Props> = ({ items }) => {
         }
       />
       <CardContent>
-        <Typography component="div">
-          Id: {items.id}
-        </Typography>
-        <Typography component="div">
+        <Typography gutterBottom variant="h6" component="div">
           {items.title}
         </Typography>
-        <Typography color="text.secondary" variant="body1">
+        <Typography gutterBottom variant="body1">
           {items.body}
         </Typography>
-        <Typography color="text.secondary" variant="body2">
-          金額：{items.amount}
-        </Typography>
-        <Typography color="text.secondary" variant="body2">
-          期限：{items.deadline.toLocaleDateString()}
-        </Typography>
-        <Typography color="text.secondary" variant="body2">
-          完了済み：{items.isDone.toString()}
-        </Typography>
+        <Stack direction="row" spacing={1} justifyContent="center" sx={{ marginTop: '20px'}}>
+          <Chip 
+            label={"ETH：" + items.amount}
+            color="info"
+            variant="outlined" 
+          />
+          <Chip 
+            label={"期限：" + items.deadline.toLocaleDateString()}
+            color="error"
+            variant="outlined"
+          />
+        </Stack>
       </CardContent>
       <CardActions>
-        <Button onClick={() => {doneTodo(items.id)}} color="success" size="small" sx={{ ml: 'auto' }}>
-          完了
-        </Button>
+        {Boolean(items.isDone) && (
+          <Box sx={{ display: 'inline-flex', marginLeft: 'auto', padding: '4px 5px' }}>
+            <Chip label="完了済み" color="success" />
+          </Box>
+        )}
+        {!Boolean(items.isDone) && (
+          <Button onClick={() => {doneTodo(items.id)}} color="success" size="small" sx={{ ml: 'auto' }}>
+            完了
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
