@@ -54,7 +54,7 @@ export const TodoForm: React.FC = () => {
           ethers.utils.parseEther(Number(formData.amount).toString()),
           // jsはミリ秒単位である。UNIXタイムスタンプを生成するので秒単位にする
           Math.floor(formData.deadline.getTime() / 1000),
-          // { gasLimit: 300000 },
+          // { gasLimit: 400000 },
         );
         console.log('Mining...', todoTxn.hash);
         await todoTxn.wait();

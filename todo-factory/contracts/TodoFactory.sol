@@ -46,7 +46,7 @@ contract TodoFactory is Ownable {
     return result;
   }
 
-  function createTodo(string memory _title, string memory _body, uint _amount, uint32 _deadline) public onlyOwner {
+  function createTodo(string memory _title, string memory _body, uint _amount, uint32 _deadline) public {
     uint id = todos.length + 1;
     bool isDone = false;
     todos.push(Todo(id, msg.sender, _title, _body, _amount, _deadline, isDone));
@@ -54,7 +54,7 @@ contract TodoFactory is Ownable {
     emit NewTodo(id, _title, _body, _amount, _deadline, isDone);
   }
 
-  function doneTodo(uint _id) public onlyOwner {
+  function doneTodo(uint _id) public {
     Todo memory copiedTodo = todos[_id - 1];
     require(copiedTodo.owner == msg.sender, "Don't have this todo");
     require(copiedTodo.isDone == false, "Already done");
@@ -70,7 +70,7 @@ contract TodoFactory is Ownable {
     return balance[msg.sender];
   }
 
-  function deposit() public payable onlyOwner {
+  function deposit() public payable {
     balance[msg.sender] += msg.value;
   }
 
