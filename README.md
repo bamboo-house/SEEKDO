@@ -1,6 +1,6 @@
 # SEEKDO
 ## 概要
-SolidityとReactを用いた、Dapp
+Soliditiy + React
 
 ## 機能
 Todo作成時にETHをプールすることができる。預けたETHはTodoを完了したときに引き出す。
